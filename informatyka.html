@@ -3,125 +3,1825 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Інформатика · У розробці</title>
+<title>Vibe-кодинг і ринок праці · Заняття для вчителів інформатики | МОН України</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f5f1e8;
-    --ink: #1a1814;
-    --ink-soft: #4a4640;
-    --accent: #c2410c;
-    --info: #1e40af;
-    --paper: #fdfbf5;
+    --bg: #ffffff;
+    --bg-soft: #f5f5f5;
+    --bg-dark: #0f0f0f;
+    --ink: #0f0f0f;
+    --ink-soft: #565656;
+    --line: #e0e0e0;
+    --line-strong: #0f0f0f;
+    --blue: #005bbb;
+    --blue-dark: #003d80;
+    --yellow: #ffd500;
+    --green: #007a3d;
+    --red: #c8102e;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  html.bw-mode {
+    filter: grayscale(1) contrast(1.05);
+    transition: filter 2s var(--ease);
+  }
+  html { transition: filter 2s var(--ease); }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
-    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Inter Tight', sans-serif;
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============= START OVERLAY ============= */
+  .start-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);
+  }
+  .start-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .gov-bar {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 8px 32px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .gov-flag {
+    width: 18px;
+    height: 12px;
+    display: inline-flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .gov-flag::before, .gov-flag::after { content: ""; height: 50%; width: 100%; }
+  .gov-flag::before { background: #0057b7; }
+  .gov-flag::after { background: #ffd500; }
+
+  .start-header {
+    padding: 16px 32px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .start-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+  .start-back:hover { color: var(--blue); }
+  .start-back::before { content: "←"; color: var(--blue); font-weight: 600; }
+
+  .logo-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mini-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-dark);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+  }
+  .logo-mini-text {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .start-main {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 40px;
+    overflow-y: auto;
   }
-  .grain {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  .wrap {
-    max-width: 720px;
+  .start-content {
+    max-width: 920px;
+    width: 100%;
     text-align: center;
   }
-  .back {
-    position: fixed;
-    top: 24px;
-    left: 32px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .back:hover { color: var(--accent); }
-  .back::before { content: "← "; color: var(--accent); }
-
-  .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 24px;
+  .start-tag {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    padding: 6px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
   }
-  .tag::before {
+  .start-tag::before {
     content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+  }
+  .start-title {
+    font-weight: 800;
+    font-size: clamp(40px, 6.5vw, 80px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin-bottom: 24px;
+  }
+  .start-title .accent { color: var(--blue); }
+  .start-title .underline { border-bottom: 8px solid var(--yellow); }
+
+  .start-lead {
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .start-timer-box {
+    display: inline-block;
+    padding: 24px 40px;
+    border: 1.5px solid var(--ink);
+    background: var(--bg-soft);
+    margin-bottom: 40px;
+  }
+  .start-timer-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .start-timer-value {
+    font-weight: 800;
+    font-size: clamp(56px, 9vw, 96px);
+    line-height: 0.95;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .start-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(16px, 1.4vw, 18px);
+    font-weight: 600;
+    padding: 18px 40px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s var(--ease);
+  }
+  .start-btn::after {
+    content: "→";
+    font-family: 'JetBrains Mono', monospace;
+    transition: transform 0.3s var(--ease);
+  }
+  .start-btn:hover { background: var(--blue-dark); }
+  .start-btn:hover::after { transform: translateX(4px); }
+  .start-note {
+    margin-top: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+
+  /* ============= CHROME ============= */
+  .chrome-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    z-index: 200;
+    height: 52px;
+  }
+  .chrome-top-inner {
+    height: 100%;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .chrome-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chrome-back::before { content: "←"; color: var(--blue); font-weight: 600; }
+  .chrome-back:hover { color: var(--blue); }
+  .chrome-title { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+  .chrome-title-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: var(--ink);
+    padding: 3px 8px;
+    margin-right: 8px;
+    font-weight: 500;
+  }
+  .chrome-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+
+  /* PROGRESS */
+  .progress {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--line);
+    z-index: 500;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--blue);
+    width: 0%;
+    transition: width 0.7s var(--ease);
+  }
+
+  /* TIMER */
+  .timer-float {
+    position: fixed;
+    top: 12px;
+    right: 100px;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    background: #fff;
+    border: 1px solid var(--ink);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s var(--ease) 0.3s, transform 0.6s var(--ease) 0.3s, background 0.4s, color 0.4s, border-color 0.4s;
+    transform: translateY(-10px);
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-float.visible {
+    opacity: 0.85;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .timer-float:hover { opacity: 1 !important; }
+  .timer-float.warning {
+    border-color: var(--yellow);
+    background: var(--yellow);
+    color: var(--ink);
+  }
+  .timer-float.warning .timer-dot {
+    background: var(--ink);
+    animation: pulse 1s ease-in-out infinite;
+  }
+  .timer-float.expired {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: #fff;
+  }
+  .timer-float.expired .timer-dot {
+    background: #fff;
+    animation: none;
+  }
+  .timer-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .timer-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .timer-label-small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+  .timer-float.warning .timer-label-small { color: rgba(15,15,15,0.7); }
+  .timer-float.expired .timer-label-small { color: rgba(255,255,255,0.7); }
+
+  /* DECK */
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding-top: 55px;
+  }
+  .slide {
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 56px 64px 80px;
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 2;
+  }
+  .slide.prev { transform: translateY(-30px); }
+  .slide-inner {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .slide .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+  .slide.active .reveal { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+  .slide.active .reveal-2 { transition-delay: 0.32s; }
+  .slide.active .reveal-3 { transition-delay: 0.44s; }
+  .slide.active .reveal-4 { transition-delay: 0.56s; }
+  .slide.active .reveal-5 { transition-delay: 0.68s; }
+  .slide.active .reveal-6 { transition-delay: 0.8s; }
+
+  /* NAV */
+  .nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 250;
+  }
+  .nav-dot {
     width: 8px;
     height: 8px;
-    border-radius: 50%;
-    background: var(--info);
+    border: 1.5px solid var(--ink);
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s var(--ease);
+    position: relative;
+  }
+  .nav-dot:hover { background: var(--yellow); }
+  .nav-dot.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    transform: scale(1.4);
+  }
+  .nav-dot::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    background: #fff;
+    padding: 4px 10px;
+    border: 1px solid var(--ink);
+  }
+  .nav-dot:hover::after { opacity: 1; }
+
+  .arrows {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 250;
+  }
+  .arrow-btn {
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    color: var(--ink);
+    transition: all 0.2s var(--ease);
+  }
+  .arrow-btn:hover:not(:disabled) {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+  }
+  .arrow-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .counter {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    z-index: 200;
+    pointer-events: none;
+  }
+  .counter .current {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0.7;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .hint kbd { border: 1px solid var(--ink-soft); padding: 2px 6px; font-size: 9px; }
+
+  /* ============= CONTENT ============= */
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .label::before {
+    content: "";
+    width: 32px;
+    height: 2px;
+    background: var(--blue);
   }
 
   h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(48px, 8vw, 96px);
-    line-height: 0.95;
+    font-weight: 800;
+    font-size: clamp(38px, 5.8vw, 76px);
+    line-height: 1.02;
     letter-spacing: -0.035em;
     margin-bottom: 28px;
   }
-  h1 em {
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 500;
+  h1 .accent { color: var(--blue); }
+  h1 .underline { border-bottom: 8px solid var(--yellow); }
+  h1 .strike { text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 4px; }
+
+  h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 4.2vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+    max-width: 1100px;
   }
+  h2 .accent { color: var(--blue); }
+  h2 .underline { border-bottom: 6px solid var(--yellow); }
+  h2 .strike { text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 3px; }
 
   .lead {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
-    font-weight: 300;
+    font-size: clamp(17px, 1.5vw, 21px);
     line-height: 1.5;
+    max-width: 880px;
     color: var(--ink-soft);
-    margin-bottom: 36px;
   }
+  .lead .accent { color: var(--blue); font-weight: 500; }
+  .lead strong { color: var(--ink); font-weight: 600; }
 
-  .note {
+  .hero-meta {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.15em;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--ink-soft);
-    padding: 16px 24px;
-    border: 1px solid var(--ink);
+    margin-bottom: 32px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    padding: 4px 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+  }
+
+  /* Dark slide */
+  .slide.dark {
+    background: var(--bg-dark);
+    color: #fff;
+  }
+  .slide.dark .label { color: rgba(255,255,255,0.5); }
+  .slide.dark h2 { color: #fff; }
+  .slide.dark h2 .accent { color: var(--yellow); }
+
+  .key-text {
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.15;
+    font-weight: 600;
+    max-width: 1000px;
+    letter-spacing: -0.025em;
+  }
+  .key-text strong {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 2px 8px;
+    font-weight: 700;
+  }
+  .key-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 36px;
+    opacity: 0.5;
+  }
+
+  /* DEFINITION CARDS */
+  .def-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 24px;
+  }
+  .def-card {
+    padding: 36px 32px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    position: relative;
+  }
+  .def-card.old { background: var(--bg-soft); }
+  .def-card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
     display: inline-block;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .def-card.old .def-card-tag {
+    background: var(--ink-soft);
+    color: #fff;
+  }
+  .def-card.new .def-card-tag {
+    background: var(--blue);
+    color: #fff;
+  }
+  .def-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .def-card p {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .def-card p strong { color: var(--ink); font-weight: 600; }
+  .def-card .quote {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: var(--bg-soft);
+    border-left: 3px solid var(--blue);
+    font-style: italic;
+    font-size: 14.5px;
+  }
+  .def-card.new .quote { background: #fff; }
+
+  /* ============= CHARTS ============= */
+  .chart-block {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    padding: 36px;
+    margin-top: 16px;
+  }
+  .chart-block.dark {
+    background: var(--bg-dark);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .chart-header {
+    margin-bottom: 28px;
+  }
+  .chart-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+  }
+  .chart-subtitle {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .chart-block.dark .chart-subtitle { color: rgba(255,255,255,0.6); }
+  .chart-source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .chart-block.dark .chart-source {
+    color: rgba(255,255,255,0.5);
+    border-top-color: rgba(255,255,255,0.15);
+  }
+
+  /* HORIZONTAL BAR CHART */
+  .bars {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 80px;
+    gap: 20px;
+    align-items: center;
+  }
+  .bar-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .bar-track {
+    height: 32px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--blue);
+    width: 0;
+    transition: width 1.2s var(--ease);
+    transition-delay: 0.4s;
+  }
+  .slide.active .bar-fill { width: var(--w); }
+  .bar-fill.yellow { background: var(--yellow); }
+  .bar-fill.ink { background: var(--ink); }
+  .bar-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: right;
+  }
+
+  /* SPLIT BAR (automation vs augmentation) */
+  .split-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .split-row { }
+  .split-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .split-label-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .split-label-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .split-track {
+    display: flex;
+    height: 44px;
+    border: 1.5px solid var(--ink);
+  }
+  .split-auto {
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    width: 0;
+    transition: width 1.2s var(--ease);
+    transition-delay: 0.4s;
+  }
+  .slide.active .split-auto { width: var(--w); }
+  .split-aug {
+    background: var(--yellow);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    flex: 1;
+  }
+
+  /* BIG STAT */
+  .big-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1.5px solid var(--ink);
+    background: #fff;
+  }
+  .big-stat {
+    padding: 36px 28px;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+  .big-stat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+  }
+  .big-stat:nth-child(1)::before { background: var(--blue); }
+  .big-stat:nth-child(2)::before { background: var(--yellow); }
+  .big-stat:nth-child(3)::before { background: var(--ink); }
+  .big-stat:last-child { border-right: none; }
+  .big-stat-value {
+    font-weight: 800;
+    font-size: clamp(56px, 7vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .big-stat:nth-child(1) .big-stat-value { color: var(--blue); }
+  .big-stat-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .big-stat-source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+
+  /* GROWTH BLOCK */
+  .growth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .growth-card {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--ink);
+    padding: 32px 28px;
+  }
+  .growth-card-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .growth-card-value {
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .growth-card-value .unit {
+    font-size: 0.5em;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .growth-card-label {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .growth-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    color: var(--blue);
+    font-weight: 700;
+    margin: 0 12px;
+  }
+
+  /* WHAT FOR SCHOOL */
+  .school-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .school-card {
+    padding: 32px 28px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    position: relative;
+  }
+  .school-card-num {
+    position: absolute;
+    top: -16px;
+    left: 24px;
+    width: 36px;
+    height: 36px;
+    background: var(--blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+  }
+  .school-card h3 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 12px 0 14px;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .school-card p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .school-card p strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* DEMO BLOCK */
+  .demo-block {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 36px;
+    border: 1.5px solid var(--ink);
+    position: relative;
+    margin-top: 20px;
+  }
+  .demo-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .demo-block pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    margin-top: 24px;
+    color: #fff;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 7px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .copy-btn:hover { background: var(--blue); border-color: var(--blue); }
+  .copy-btn.copied { background: var(--green); border-color: var(--green); }
+
+  /* HOMEWORK */
+  .homework { display: grid; gap: 14px; }
+  .hw-item {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 24px;
+    padding: 28px 32px;
+    background: #fff;
+    border: 1.5px solid #fff;
+    align-items: center;
+  }
+  .hw-num {
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .hw-content h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .hw-content p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .hw-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    border: 1px solid var(--ink);
+    white-space: nowrap;
+    font-weight: 500;
+    background: var(--bg-soft);
+    color: var(--ink);
+  }
+  .hw-tag.required { background: var(--yellow); }
+  .hw-tag.optional { background: #fff; }
+
+  /* FINAL */
+  .final-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .final-big {
+    font-weight: 800;
+    font-size: clamp(44px, 6.5vw, 84px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  .final-big .accent { color: var(--blue); }
+  .final-big .yellow { background: var(--yellow); padding: 0 10px; }
+  .final-list {
+    list-style: none;
+    counter-reset: final;
+  }
+  .final-list li {
+    counter-increment: final;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+    line-height: 1.4;
+  }
+  .final-list li::before {
+    content: counter(final, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    min-width: 30px;
+  }
+
+  /* SOURCES BANNER */
+  .sources-banner {
+    margin-top: 28px;
+    padding: 18px 24px;
+    background: var(--bg-soft);
+    border-left: 3px solid var(--blue);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .sources-banner strong { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 968px) {
+    .slide { padding: 40px 24px 80px; }
+    .def-grid { grid-template-columns: 1fr; gap: 20px; }
+    .big-stats { grid-template-columns: 1fr; }
+    .big-stat { border-right: none; border-bottom: 1px solid var(--line); }
+    .big-stat:last-child { border-bottom: none; }
+    .school-grid { grid-template-columns: 1fr; gap: 28px; }
+    .growth-grid { grid-template-columns: 1fr; gap: 16px; }
+    .final-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hw-item { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
+    .bar-row { grid-template-columns: 1fr; gap: 6px; }
+    .bar-track { height: 28px; }
+    .bar-value { text-align: left; }
+    .nav { display: none; }
+    .timer-float { right: 86px; padding: 5px 10px; }
+    .timer-float .timer-label-small { display: none; }
+  }
+  @media (max-width: 600px) {
+    .slide { padding: 32px 20px 80px; }
+    .arrows { right: 14px; bottom: 14px; }
+    .counter { left: 14px; bottom: 14px; }
+    .hint { display: none; }
+    .chrome-top-inner { padding: 0 16px; }
+    .chrome-right { display: none; }
+    .chrome-title { font-size: 11px; }
+    .arrow-btn { width: 36px; height: 36px; }
   }
 </style>
 </head>
 <body>
 
-<div class="grain"></div>
+<!-- START OVERLAY -->
+<div class="start-overlay" id="startOverlay">
+  <div class="gov-bar">
+    <span class="gov-flag"></span>
+    <span>Офіційний веб-ресурс · Україна</span>
+  </div>
+  <div class="start-header">
+    <a href="index.html" class="logo-mini">
+      <div class="logo-mini-mark">МОН</div>
+      <div class="logo-mini-text">Міністерство освіти і науки</div>
+    </a>
+    <a href="index.html" class="start-back">До всіх занять</a>
+  </div>
 
-<a href="index.html" class="back">До всіх занять</a>
+  <div class="start-main">
+    <div class="start-content">
+      <div class="start-tag">інформатика · нуш · заняття 02</div>
 
-<div class="wrap">
-  <div class="tag">інформатика · нуш</div>
-  <h1>У <em>розробці</em></h1>
-  <p class="lead">
-    Сторінка цього заняття зараз готується.
-    Поверніться сюди трохи пізніше — або перегляньте поки заняття з математики.
-  </p>
-  <div class="note">заняття 02 · скоро</div>
+      <h1 class="start-title">
+        Vibe-кодинг <br>
+        і <span class="accent">нова реальність</span><br>
+        <span class="underline">ринку праці</span>
+      </h1>
+
+      <p class="start-lead">
+        Як штучний інтелект змінює професію програміста — і що це означає
+        для того, як ми вчимо інформатики у школі. На реальних даних
+        Anthropic Economic Index.
+      </p>
+
+      <div class="start-timer-box">
+        <div class="start-timer-label">Тривалість заняття</div>
+        <div class="start-timer-value">30:00</div>
+      </div>
+
+      <div>
+        <button class="start-btn" id="startBtn">Давайте вчитися</button>
+      </div>
+
+      <div class="start-note">після натискання таймер запуститься й залишиться у кутку</div>
+    </div>
+  </div>
 </div>
+
+<!-- CHROME -->
+<div class="chrome-top">
+  <div class="chrome-top-inner">
+    <a href="index.html" class="chrome-back">До всіх занять</a>
+    <div class="chrome-title">
+      <span class="chrome-title-tag">Інформатика</span>
+      Vibe-кодинг і ринок праці
+    </div>
+    <div class="chrome-right">МОН України · НУШ</div>
+  </div>
+</div>
+
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="timer-float" id="timerFloat">
+  <div class="timer-dot"></div>
+  <div class="timer-value" id="timerValue">30:00</div>
+  <div class="timer-label-small" id="timerLabel">залишилось</div>
+</div>
+
+<!-- DECK -->
+<div class="deck" id="deck">
+
+  <!-- SLIDE 01: HERO -->
+  <div class="slide active" data-label="вступ">
+    <div class="slide-inner">
+      <div class="hero-meta reveal">
+        <span>Для вчителів інформатики</span>
+        <span>Дані: Anthropic Economic Index</span>
+        <span>2025–2026</span>
+      </div>
+      <h1 class="reveal reveal-2">
+        Як <span class="strike">кодинг</span> <span class="accent">vibe-кодинг</span><br>
+        витісняє класичне<br>
+        <span class="underline">ручне програмування</span>
+      </h1>
+      <p class="lead reveal reveal-3">
+        Світ розробки <strong>змінився за два роки</strong>. Те, що раніше вимагало
+        годин ручного коду, тепер пишеться <span class="accent">розмовою з ШІ</span>.
+        Сьогодні розбираємось, що це означає для нашого предмета — і що ми кажемо
+        дітям, які питають «чи варто йти в IT».
+      </p>
+    </div>
+  </div>
+
+  <!-- SLIDE 02: WHAT IS VIBE-CODING -->
+  <div class="slide" data-label="що це таке">
+    <div class="slide-inner">
+      <div class="label reveal">визначення · що змінилося</div>
+      <h2 class="reveal reveal-2">Класичний кодинг → <span class="accent">vibe-кодинг</span></h2>
+
+      <div class="def-grid">
+        <div class="def-card old reveal reveal-3">
+          <div class="def-card-tag">було · до 2023</div>
+          <h3>Класичне програмування</h3>
+          <p>
+            Розробник <strong>сам пише кожен рядок коду</strong>, тримає в голові
+            синтаксис, бібліотеки, патерни. Час на просту веб-функцію —
+            кілька годин. Студент 4 роки вчить «як це писати руками».
+          </p>
+          <div class="quote">
+            «Знай мову, знай фреймворк, годинами шукай помилку в крапці з комою».
+          </div>
+        </div>
+
+        <div class="def-card new reveal reveal-4">
+          <div class="def-card-tag">стало · 2024+</div>
+          <h3>Vibe-кодинг</h3>
+          <p>
+            Розробник <strong>описує задачу природною мовою</strong>, а ШІ-агент
+            (Claude Code, Cursor, Copilot) пише код. Людина — архітектор і
+            редактор. Та сама функція — 10 хвилин замість 3 годин.
+          </p>
+          <div class="quote">
+            «Опиши, що має робити програма. Скажи ШІ виправити те, що не працює.
+            Затверди результат».
+          </div>
+        </div>
+      </div>
+
+      <div class="sources-banner reveal reveal-5">
+        <strong>Anthropic Economic Index, 2025:</strong> у Claude Code (інструменті для розробників)
+        частка «автоматизації» — коли ШІ виконує задачу самостійно — становить
+        <strong>79%</strong>. У звичайному чаті — лише 49%.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 03: BIG NUMBERS -->
+  <div class="slide" data-label="цифри">
+    <div class="slide-inner">
+      <div class="label reveal">факти · цифри змін</div>
+      <h2 class="reveal reveal-2">Три числа, які <span class="underline">змінили професію</span></h2>
+
+      <div class="big-stats reveal reveal-3">
+        <div class="big-stat">
+          <div class="big-stat-value">79%</div>
+          <div class="big-stat-label">Розмов у Claude Code — це повна автоматизація задач, а не «допомога розробнику»</div>
+          <div class="big-stat-source">Anthropic, 2025</div>
+        </div>
+        <div class="big-stat">
+          <div class="big-stat-value">36%</div>
+          <div class="big-stat-label">Усього використання Claude — це кодинг (найпопулярніша категорія задач)</div>
+          <div class="big-stat-source">Anthropic, верес. 2025</div>
+        </div>
+        <div class="big-stat">
+          <div class="big-stat-value">52%</div>
+          <div class="big-stat-label">API-трафіку Anthropic — комп'ютерні та математичні задачі, переважно код</div>
+          <div class="big-stat-source">Anthropic, січ. 2026</div>
+        </div>
+      </div>
+
+      <div class="sources-banner reveal reveal-4">
+        Висновок Anthropic: <strong>кодинг — це не просто популярна задача для ШІ.</strong>
+        Це задача, яка <strong>швидше за інші переходить у режим повної автоматизації</strong> через API,
+        де людина вже не в кожному кроці.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 04: AUTOMATION VS AUGMENTATION -->
+  <div class="slide" data-label="автоматизація" style="background: var(--bg-soft);">
+    <div class="slide-inner">
+      <div class="label reveal">діаграма · режими використання</div>
+      <h2 class="reveal reveal-2">Кодинг сильніше за все рухається в <span class="accent">автоматизацію</span></h2>
+
+      <div class="chart-block reveal reveal-3">
+        <div class="chart-header">
+          <div class="chart-title">Автоматизація vs. колаборація: де ШІ діє самостійно</div>
+          <div class="chart-subtitle">«Автоматизація» — ШІ виконує задачу повністю. «Колаборація» — ШІ допомагає людині. Дані Anthropic за 2025 рік.</div>
+        </div>
+
+        <div class="split-bars">
+          <div class="split-row">
+            <div class="split-label">
+              <span class="split-label-name">Claude Code (інструмент для розробників)</span>
+              <span class="split-label-sub">кодинг → API</span>
+            </div>
+            <div class="split-track">
+              <div class="split-auto" style="--w: 79%">79%</div>
+              <div class="split-aug">21%</div>
+            </div>
+          </div>
+          <div class="split-row">
+            <div class="split-label">
+              <span class="split-label-name">Claude.ai (звичайний чат)</span>
+              <span class="split-label-sub">різні задачі</span>
+            </div>
+            <div class="split-track">
+              <div class="split-auto" style="--w: 49%">49%</div>
+              <div class="split-aug">51%</div>
+            </div>
+          </div>
+          <div class="split-row">
+            <div class="split-label">
+              <span class="split-label-name">Бізнес-API (Anthropic)</span>
+              <span class="split-label-sub">грудень 2024 → 2025</span>
+            </div>
+            <div class="split-track">
+              <div class="split-auto" style="--w: 39%">39%</div>
+              <div class="split-aug">61%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-source">
+          Джерело: Anthropic Economic Index · «AI's impact on software development» (2025), січневий звіт 2026
+        </div>
+      </div>
+
+      <div class="sources-banner reveal reveal-4">
+        Що означає <strong>«79% автоматизації»</strong>? Розробник більше не пише код — він
+        дає завдання й приймає результат. Це <strong>принципово інша професія</strong>,
+        ніж та, до якої ми готували випускників ще три роки тому.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 05: WHO USES IT MOST -->
+  <div class="slide" data-label="хто використовує">
+    <div class="slide-inner">
+      <div class="label reveal">діаграма · хто найбільше використовує ШІ</div>
+      <h2 class="reveal reveal-2">Програмісти — <span class="accent">№1</span> в адаптації ШІ</h2>
+
+      <div class="chart-block reveal reveal-3">
+        <div class="chart-header">
+          <div class="chart-title">Частка професійних задач у Claude (січень 2026)</div>
+          <div class="chart-subtitle">Скільки розмов із Claude припадає на кожну категорію професій у API. Комп'ютерні задачі — далеко попереду.</div>
+        </div>
+
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-label">Computer &amp; Mathematical</div>
+            <div class="bar-track"><div class="bar-fill" style="--w: 100%"></div></div>
+            <div class="bar-value">52%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Office &amp; Administrative</div>
+            <div class="bar-track"><div class="bar-fill yellow" style="--w: 29%"></div></div>
+            <div class="bar-value">15%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Business &amp; Financial</div>
+            <div class="bar-track"><div class="bar-fill ink" style="--w: 21%"></div></div>
+            <div class="bar-value">11%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Educational Instruction</div>
+            <div class="bar-track"><div class="bar-fill ink" style="--w: 8%"></div></div>
+            <div class="bar-value">4%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Інші професії (разом)</div>
+            <div class="bar-track"><div class="bar-fill ink" style="--w: 35%"></div></div>
+            <div class="bar-value">18%</div>
+          </div>
+        </div>
+
+        <div class="chart-source">
+          Джерело: Anthropic Economic Index · Economic Primitives Report (січень 2026), API-трафік
+        </div>
+      </div>
+
+      <div class="sources-banner reveal reveal-4">
+        <strong>52%</strong> усієї роботи з API Anthropic — це комп'ютерні задачі (переважно код).
+        Для порівняння: освітні задачі — лише 4%. Програмісти <strong>швидше за всіх інших</strong>
+        включають ШІ у свою щоденну роботу.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 06: GROWTH OVER TIME -->
+  <div class="slide dark" data-label="ріст автоматизації">
+    <div class="slide-inner">
+      <div class="label reveal">динаміка · як змінилось за рік</div>
+      <h2 class="reveal reveal-2">Автоматизація за рік: <span class="accent">+45%</span></h2>
+
+      <p class="lead reveal reveal-3" style="color: rgba(255,255,255,0.7); max-width: 900px;">
+        Anthropic фіксує: частка розмов, де ШІ виконує задачу <strong style="color: #fff;">повністю самостійно</strong>
+        (без участі людини на кожному кроці), стрімко зростає в бізнес-API.
+      </p>
+
+      <div class="growth-grid reveal reveal-4">
+        <div class="growth-card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2);">
+          <div class="growth-card-period" style="color: rgba(255,255,255,0.5);">грудень 2024</div>
+          <div class="growth-card-value" style="color: #fff;">27<span class="unit" style="color: rgba(255,255,255,0.5);">%</span></div>
+          <div class="growth-card-label" style="color: rgba(255,255,255,0.7);">розмов — повна автоматизація задач</div>
+        </div>
+        <div class="growth-card" style="background: var(--yellow); border-color: var(--yellow); color: var(--ink);">
+          <div class="growth-card-period">2025 рік</div>
+          <div class="growth-card-value">39<span class="unit">%</span></div>
+          <div class="growth-card-label" style="color: var(--ink);">розмов — повна автоматизація задач</div>
+        </div>
+      </div>
+
+      <div class="sources-banner reveal reveal-5" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); border-left-color: var(--yellow);">
+        <strong style="color: #fff;">+12 відсоткових пунктів</strong> за рік. Якщо тренд триватиме,
+        у 2027-му <strong style="color: #fff;">більше половини</strong> бізнес-задач буде делеговано ШІ
+        без участі людини в процесі.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 07: WHAT THIS MEANS FOR JOBS -->
+  <div class="slide" data-label="ринок праці">
+    <div class="slide-inner">
+      <div class="label reveal">висновок · що з ринком праці</div>
+      <h2 class="reveal reveal-2">Це <span class="strike">кінець</span> професії — це <span class="accent">інша професія</span></h2>
+
+      <div class="def-grid">
+        <div class="def-card old reveal reveal-3">
+          <div class="def-card-tag">що зникає</div>
+          <h3>Рутинне ручне кодування</h3>
+          <p>
+            <strong>Junior-позиції на ручний CRUD-код, прості форми, типові SQL-запити</strong> —
+            те, що вчора оплачувалось $1000–2000 на місяць, тепер пише ШІ за хвилини.
+            Anthropic: «AI заміщує задачі з нижчим рівнем експертизи, доповнюючи висококваліфіковану працю».
+          </p>
+        </div>
+
+        <div class="def-card new reveal reveal-4">
+          <div class="def-card-tag">що зростає</div>
+          <h3>Архітектори, ревьювери, постановники задач</h3>
+          <p>
+            Ті, хто вміє <strong>чітко сформулювати задачу</strong>, побачити архітектуру системи
+            та <strong>перевірити, що ШІ зробив правильно</strong>. Anthropic: «Найдосвідченіші
+            користувачі частіше за всіх ітерують із ШІ — це навичка, що тренується».
+          </p>
+        </div>
+      </div>
+
+      <div class="sources-banner reveal reveal-5">
+        Це <strong>skill-biased technical change</strong>: технологія, яка одночасно <strong>забирає
+        низькокваліфіковані ролі</strong> та <strong>посилює попит на висококваліфікованих</strong>.
+        Прикладами таких змін у минулому були поява комп'ютерів і інтернету.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 08: WHAT FOR SCHOOL -->
+  <div class="slide" data-label="що в школі" style="background: var(--bg-soft);">
+    <div class="slide-inner">
+      <div class="label reveal">для нас · що це означає для школи</div>
+      <h2 class="reveal reveal-2">Що змінюємо в <span class="underline">уроці інформатики</span></h2>
+
+      <div class="school-grid">
+        <div class="school-card reveal reveal-3">
+          <div class="school-card-num">01</div>
+          <h3>Менше синтаксису — більше мислення</h3>
+          <p>
+            Заучувати, як саме записати цикл for на Python, <strong>стає менш критично</strong>.
+            Натомість важливо вміти <strong>розбити задачу на кроки</strong>, побачити крайові
+            випадки, прочитати чужий код і знайти помилку.
+          </p>
+        </div>
+
+        <div class="school-card reveal reveal-4">
+          <div class="school-card-num">02</div>
+          <h3>Промпт-інженерія = новий синтаксис</h3>
+          <p>
+            Уміння <strong>чітко поставити задачу ШІ</strong> — навичка, яка переноситься з
+            інформатики на всі інші предмети. Це той самий <strong>алгоритмічний підхід</strong>,
+            тільки замість мови програмування — українська.
+          </p>
+        </div>
+
+        <div class="school-card reveal reveal-5">
+          <div class="school-card-num">03</div>
+          <h3>Тестування і ревью — нова базова навичка</h3>
+          <p>
+            Якщо ШІ пише код, головна задача людини — <strong>перевірити, що він працює правильно</strong>.
+            Це означає більше уваги до тестів, перевірки граничних випадків, читання коду — а не
+            тільки його написання.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 09: DEMO PROMPT -->
+  <div class="slide" data-label="демо · промпт">
+    <div class="slide-inner">
+      <div class="label reveal">практика · приклад уроку</div>
+      <h2 class="reveal reveal-2">Демо: <span class="accent">vibe-кодинг</span> на уроці інформатики</h2>
+
+      <p class="lead reveal reveal-3" style="margin-bottom: 16px;">
+        Покажіть учням, як <strong>описати задачу мовою</strong>, отримати код, перевірити його та
+        виправити. Промпт-шаблон для Gemini, який можна використати на уроці:
+      </p>
+
+      <div class="demo-block reveal reveal-4">
+        <div class="demo-label">Gemini · prompt для уроку</div>
+        <button class="copy-btn" data-target="p1">копіювати</button>
+<pre id="p1">Я учень/учениця [КЛАС] класу, вивчаю мову Python.
+Допоможи мені написати програму, яка [ОПИС ЗАДАЧІ].
+
+Зроби це так:
+1. Спочатку постав мені 2-3 уточнюючі запитання,
+   аби краще зрозуміти, що саме мені потрібно.
+2. Після моїх відповідей напиши код із короткими
+   коментарями українською.
+3. Запропонуй 2 тестових випадки, на яких програма
+   має працювати — і 1 крайній випадок, де може
+   зламатися.
+4. У кінці поясни, як я можу її покращити сам.
+
+Не давай готову відповідь одразу — спочатку запитай мене.</pre>
+      </div>
+
+      <div class="sources-banner reveal reveal-5">
+        <strong>Ключове в цьому промпті:</strong> учень не отримує готовий код одразу. Він
+        <strong>уточнює задачу</strong>, <strong>тестує</strong> та <strong>розуміє</strong>. Це
+        і є нова грамотність — не «писати руками», а керувати процесом.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: HOMEWORK -->
+  <div class="slide dark" data-label="домашнє">
+    <div class="slide-inner">
+      <div class="label reveal">після заняття · домашня робота</div>
+      <h2 class="reveal reveal-2">Три завдання — <span class="accent">для практики</span></h2>
+
+      <div class="homework">
+        <div class="hw-item reveal reveal-3">
+          <div class="hw-num">01</div>
+          <div class="hw-content">
+            <h3>Провести демо-урок із промптом</h3>
+            <p>Обрати одну тему уроку інформатики, провести з учнями завдання за промптом вище. Спостерігати, де вони губляться — у формулюванні чи в перевірці.</p>
+          </div>
+          <div class="hw-tag required">обов'язкове</div>
+        </div>
+
+        <div class="hw-item reveal reveal-4">
+          <div class="hw-num">02</div>
+          <div class="hw-content">
+            <h3>Переглянути звіт Anthropic</h3>
+            <p>«Anthropic Economic Index: AI's impact on software development». Виписати 3 факти, які найбільше здивували, для обговорення з колегами.</p>
+          </div>
+          <div class="hw-tag">самоопрацювання</div>
+        </div>
+
+        <div class="hw-item reveal reveal-5">
+          <div class="hw-num">03</div>
+          <div class="hw-content">
+            <h3>Скласти власну рубрику оцінювання</h3>
+            <p>Створити рубрику для оцінювання учнівського проєкту, виконаного з ШІ. Що оцінюємо: код, формулювання задачі, тести, чи учень може пояснити рішення.</p>
+          </div>
+          <div class="hw-tag optional">за бажанням</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: FINAL -->
+  <div class="slide" data-label="підсумок" style="background: var(--bg-soft);">
+    <div class="slide-inner">
+      <div class="final-grid">
+        <div>
+          <div class="label reveal">резюме · одним рядком</div>
+          <div class="final-big reveal reveal-2">
+            Опиши.<br>
+            <span class="accent">Згенеруй.</span><br>
+            <span class="yellow">Перевір.</span>
+          </div>
+        </div>
+        <div>
+          <div class="label reveal reveal-3">що забрати з собою</div>
+          <ul class="final-list">
+            <li class="reveal reveal-4">79% розмов у Claude Code — повна автоматизація. Це нова норма.</li>
+            <li class="reveal reveal-5">Кодинг переходить із «писати руками» в «керувати ШІ».</li>
+            <li class="reveal reveal-6">У школі: менше синтаксису — більше мислення й тестування.</li>
+          </ul>
+
+          <div class="sources-banner" style="margin-top: 28px;">
+            <strong>Усі дані:</strong> Anthropic Economic Index, звіти 2025–2026 ·
+            anthropic.com/research
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav" id="nav"></div>
+
+<!-- ARROWS -->
+<div class="arrows">
+  <button class="arrow-btn" id="prevBtn" aria-label="попередній слайд">↑</button>
+  <button class="arrow-btn" id="nextBtn" aria-label="наступний слайд">↓</button>
+</div>
+
+<!-- COUNTER -->
+<div class="counter">
+  <span class="current" id="counterCurrent">01</span> / <span id="counterTotal">11</span>
+</div>
+
+<!-- HINT -->
+<div class="hint">
+  <kbd>↑</kbd><kbd>↓</kbd> <span>або скрол</span>
+</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let animating = false;
+
+  const navContainer = document.getElementById('nav');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const counterCurrent = document.getElementById('counterCurrent');
+  const counterTotal = document.getElementById('counterTotal');
+  const progressFill = document.getElementById('progressFill');
+
+  counterTotal.textContent = String(total).padStart(2, '0');
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('data-label', slide.getAttribute('data-label') || `слайд ${i+1}`);
+    dot.addEventListener('click', () => goTo(i));
+    navContainer.appendChild(dot);
+  });
+
+  function update() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === current) s.classList.add('active');
+      else if (i < current) s.classList.add('prev');
+    });
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+    counterCurrent.textContent = String(current + 1).padStart(2, '0');
+    progressFill.style.width = ((current + 1) / total * 100) + '%';
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    slides[current].scrollTop = 0;
+  }
+  function goTo(index) {
+    if (animating || index < 0 || index >= total || index === current) return;
+    animating = true;
+    current = index;
+    update();
+    setTimeout(() => { animating = false; }, 650);
+  }
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  prevBtn.onclick = prev;
+  nextBtn.onclick = next;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (!startOverlay.classList.contains('hidden')) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startSession(); }
+      return;
+    }
+    switch(e.key) {
+      case 'ArrowDown': case 'ArrowRight': case 'PageDown': case ' ':
+        e.preventDefault(); next(); break;
+      case 'ArrowUp': case 'ArrowLeft': case 'PageUp':
+        e.preventDefault(); prev(); break;
+      case 'Home': e.preventDefault(); goTo(0); break;
+      case 'End': e.preventDefault(); goTo(total - 1); break;
+    }
+  });
+
+  let wheelTimer = null, wheelAccum = 0;
+  document.addEventListener('wheel', (e) => {
+    if (!startOverlay.classList.contains('hidden')) return;
+    const active = slides[current];
+    const atTop = active.scrollTop === 0;
+    const atBottom = Math.abs(active.scrollHeight - active.clientHeight - active.scrollTop) < 2;
+    if (e.deltaY > 0 && !atBottom) return;
+    if (e.deltaY < 0 && !atTop) return;
+    e.preventDefault();
+    if (animating) return;
+    wheelAccum += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      if (Math.abs(wheelAccum) > 30) {
+        if (wheelAccum > 0) next(); else prev();
+      }
+      wheelAccum = 0;
+    }, 50);
+  }, { passive: false });
+
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (!startOverlay.classList.contains('hidden')) return;
+    const diff = touchStartY - e.changedTouches[0].screenY;
+    const active = slides[current];
+    const atTop = active.scrollTop === 0;
+    const atBottom = Math.abs(active.scrollHeight - active.clientHeight - active.scrollTop) < 2;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && atBottom) next();
+      else if (diff < 0 && atTop) prev();
+    }
+  }, { passive: true });
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const text = document.getElementById(btn.getAttribute('data-target')).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'скопійовано ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
+
+  // TIMER
+  const startOverlay = document.getElementById('startOverlay');
+  const startBtn = document.getElementById('startBtn');
+  const timerFloat = document.getElementById('timerFloat');
+  const timerValue = document.getElementById('timerValue');
+  const timerLabel = document.getElementById('timerLabel');
+
+  const DURATION_MS = 30 * 60 * 1000;
+  let timerStart = null;
+  let expired = false;
+
+  function fmt(ms) {
+    if (ms < 0) ms = 0;
+    const t = Math.ceil(ms / 1000);
+    return String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
+  }
+  function fmtOver(ms) {
+    const t = Math.floor(Math.abs(ms) / 1000);
+    return '+' + String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
+  }
+
+  function updateTimer() {
+    if (!timerStart) return;
+    const remaining = DURATION_MS - (Date.now() - timerStart);
+    if (remaining > 0) {
+      timerValue.textContent = fmt(remaining);
+      if (remaining <= 5 * 60 * 1000 && !timerFloat.classList.contains('warning')) {
+        timerFloat.classList.add('warning');
+        timerLabel.textContent = 'мало';
+      }
+    } else {
+      if (!expired) {
+        expired = true;
+        timerFloat.classList.remove('warning');
+        timerFloat.classList.add('expired');
+        timerLabel.textContent = 'час вийшов';
+        document.documentElement.classList.add('bw-mode');
+      }
+      timerValue.textContent = fmtOver(remaining);
+    }
+  }
+
+  function startSession() {
+    startOverlay.classList.add('hidden');
+    setTimeout(() => {
+      timerFloat.classList.add('visible');
+      timerStart = Date.now();
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }, 400);
+  }
+
+  startBtn.addEventListener('click', startSession);
+
+  update();
+})();
+</script>
 
 </body>
 </html>

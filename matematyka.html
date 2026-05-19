@@ -3,55 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3 групи результатів + Gemini · Заняття для вчителів математики</title>
+<title>Три групи результатів · Заняття для вчителів математики | МОН України</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f5f1e8;
-    --bg-alt: #ebe5d4;
-    --ink: #1a1814;
-    --ink-soft: #4a4640;
-    --accent: #c2410c;
-    --accent-soft: #fb923c;
-    --line: #1a1814;
-    --paper: #fdfbf5;
-    --g1: #166534;
-    --g2: #1e40af;
-    --g3: #9f1239;
-    --ease: cubic-bezier(0.65, 0, 0.35, 1);
+    --bg: #ffffff;
+    --bg-soft: #f5f5f5;
+    --bg-dark: #0f0f0f;
+    --ink: #0f0f0f;
+    --ink-soft: #565656;
+    --line: #e0e0e0;
+    --line-strong: #0f0f0f;
+    --blue: #005bbb;
+    --blue-dark: #003d80;
+    --yellow: #ffd500;
+    --green: #007a3d;
+    --red: #c8102e;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* B&W mode — all colors collapse to grayscale via filter on root.
-     This is animated for a smooth visual transition. */
   html.bw-mode {
     filter: grayscale(1) contrast(1.05);
     transition: filter 2s var(--ease);
   }
-  html {
-    transition: filter 2s var(--ease);
-  }
+  html { transition: filter 2s var(--ease); }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html, body {
     height: 100%;
     overflow: hidden;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
-  }
-
-  .grain {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* ============= START OVERLAY ============= */
@@ -59,13 +47,10 @@
     position: fixed;
     inset: 0;
     z-index: 900;
-    background: var(--bg);
+    background: #fff;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 40px;
-    transition: opacity 0.8s var(--ease), visibility 0.8s var(--ease);
+    transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);
   }
   .start-overlay.hidden {
     opacity: 0;
@@ -73,137 +58,283 @@
     pointer-events: none;
   }
 
+  .gov-bar {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 8px 32px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .gov-flag {
+    width: 18px;
+    height: 12px;
+    display: inline-flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .gov-flag::before, .gov-flag::after { content: ""; height: 50%; width: 100%; }
+  .gov-flag::before { background: #0057b7; }
+  .gov-flag::after { background: #ffd500; }
+
+  .start-header {
+    padding: 16px 32px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .start-back {
-    position: absolute;
-    top: 28px;
-    left: 32px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--ink-soft);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     transition: color 0.2s;
   }
-  .start-back:hover { color: var(--accent); }
-  .start-back::before { content: "← "; color: var(--accent); }
+  .start-back:hover { color: var(--blue); }
+  .start-back::before { content: "←"; color: var(--blue); font-weight: 600; }
 
-  .start-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.15em;
+  .logo-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mini-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-dark);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: -0.02em;
+  }
+  .logo-mini-text {
+    font-size: 11px;
+    font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .start-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    overflow-y: auto;
+  }
+
+  .start-content {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .start-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
     color: var(--ink-soft);
     margin-bottom: 32px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
+    padding: 6px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
   }
-  .start-meta span::before { content: "◇ "; color: var(--accent); }
+  .start-tag::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+  }
 
   .start-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(48px, 8vw, 120px);
-    line-height: 0.92;
+    font-weight: 800;
+    font-size: clamp(40px, 6.5vw, 80px);
+    line-height: 1.02;
     letter-spacing: -0.035em;
-    margin-bottom: 32px;
-    text-align: center;
-    max-width: 1100px;
+    margin-bottom: 24px;
+    color: var(--ink);
   }
-  .start-title .num {
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 500;
-  }
-  .start-title em {
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 500;
+  .start-title .num { color: var(--blue); }
+  .start-title .underline {
+    border-bottom: 8px solid var(--yellow);
   }
 
   .start-lead {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(18px, 1.6vw, 22px);
+    font-size: clamp(17px, 1.6vw, 21px);
     line-height: 1.5;
-    max-width: 680px;
-    text-align: center;
-    font-weight: 300;
     color: var(--ink-soft);
     margin-bottom: 48px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .start-timer-preview {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(80px, 13vw, 180px);
-    font-weight: 900;
-    font-style: italic;
-    line-height: 1;
-    color: var(--accent);
-    margin-bottom: 16px;
-    letter-spacing: -0.05em;
+  .start-timer-box {
+    display: inline-block;
+    padding: 24px 40px;
+    border: 1.5px solid var(--ink);
+    background: var(--bg-soft);
+    margin-bottom: 40px;
   }
-
   .start-timer-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.2em;
+    font-size: 10px;
     text-transform: uppercase;
+    letter-spacing: 0.2em;
     color: var(--ink-soft);
-    margin-bottom: 48px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .start-timer-value {
+    font-weight: 800;
+    font-size: clamp(56px, 9vw, 96px);
+    line-height: 0.95;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
   }
 
   .start-btn {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(22px, 2.5vw, 30px);
-    font-weight: 700;
-    font-style: italic;
-    padding: 22px 56px;
-    background: var(--ink);
-    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(16px, 1.4vw, 18px);
+    font-weight: 600;
+    padding: 18px 40px;
+    background: var(--blue);
+    color: #fff;
     border: none;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s var(--ease), background 0.3s var(--ease);
-    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+    letter-spacing: -0.005em;
   }
   .start-btn::after {
-    content: " →";
+    content: "→";
     transition: transform 0.3s var(--ease);
-    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
   }
   .start-btn:hover {
-    background: var(--accent);
-    transform: translateY(-2px);
+    background: var(--blue-dark);
   }
   .start-btn:hover::after {
-    transform: translateX(6px);
+    transform: translateX(4px);
   }
 
   .start-note {
-    margin-top: 32px;
+    margin-top: 24px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
+    font-size: 11px;
     text-transform: uppercase;
+    letter-spacing: 0.12em;
     color: var(--ink-soft);
-    opacity: 0.6;
   }
 
-  /* ============= FLOATING TIMER (after start) ============= */
+  /* ============= TOP CHROME ============= */
+  .chrome-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    z-index: 200;
+    height: 52px;
+  }
+  .chrome-top-inner {
+    height: 100%;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .chrome-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chrome-back::before { content: "←"; color: var(--blue); font-weight: 600; }
+  .chrome-back:hover { color: var(--blue); }
+
+  .chrome-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .chrome-title-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: var(--blue);
+    padding: 3px 8px;
+    margin-right: 8px;
+    font-weight: 500;
+  }
+
+  .chrome-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+
+  /* PROGRESS BAR */
+  .progress {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--line);
+    z-index: 500;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--blue);
+    width: 0%;
+    transition: width 0.7s var(--ease);
+  }
+
+  /* FLOATING TIMER */
   .timer-float {
     position: fixed;
-    top: 18px;
-    right: 84px;
+    top: 12px;
+    right: 100px;
     z-index: 400;
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 16px;
-    background: var(--paper);
-    border: 1px solid var(--line);
+    padding: 6px 14px;
+    background: #fff;
+    border: 1px solid var(--ink);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.6s var(--ease) 0.3s, transform 0.6s var(--ease) 0.3s, background 0.4s, color 0.4s, border-color 0.4s;
@@ -211,142 +342,80 @@
     font-variant-numeric: tabular-nums;
   }
   .timer-float.visible {
-    opacity: 0.75;
+    opacity: 0.85;
     pointer-events: auto;
     transform: translateY(0);
   }
-  .timer-float:hover {
-    opacity: 1 !important;
-  }
+  .timer-float:hover { opacity: 1 !important; }
   .timer-float.warning {
-    border-color: var(--accent);
-    background: var(--accent);
-    color: var(--paper);
+    border-color: var(--yellow);
+    background: var(--yellow);
+    color: var(--ink);
   }
   .timer-float.warning .timer-dot {
-    background: var(--paper);
+    background: var(--ink);
     animation: pulse 1s ease-in-out infinite;
   }
   .timer-float.expired {
     border-color: var(--ink);
     background: var(--ink);
-    color: var(--paper);
+    color: #fff;
   }
   .timer-float.expired .timer-dot {
-    background: var(--paper);
+    background: #fff;
     animation: none;
   }
-
   .timer-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
     flex-shrink: 0;
     animation: pulse 2s ease-in-out infinite;
   }
-
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
   }
-
   .timer-value {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
-
   .timer-label-small {
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
-    letter-spacing: 0.15em;
     text-transform: uppercase;
+    letter-spacing: 0.12em;
     color: var(--ink-soft);
   }
   .timer-float.warning .timer-label-small,
   .timer-float.expired .timer-label-small {
-    color: rgba(253,251,245,0.7);
+    color: rgba(255,255,255,0.7);
   }
+  .timer-float.warning .timer-label-small { color: rgba(15,15,15,0.7); }
 
-  /* ============= TOP PROGRESS (slide progress) ============= */
-  .progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: rgba(26,24,20,0.08);
-    z-index: 500;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    width: 0%;
-    transition: width 0.7s var(--ease);
-    box-shadow: 0 0 8px rgba(194,65,12,0.4);
-  }
-
-  /* ============= CHROME ============= */
-  .chrome-top {
-    position: fixed;
-    top: 14px;
-    left: 0;
-    right: 0;
-    padding: 8px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    z-index: 200;
-    pointer-events: none;
-  }
-  .chrome-top-title {
-    font-family: 'Fraunces', serif;
-    text-transform: none;
-    letter-spacing: -0.01em;
-    font-size: 14px;
-    font-weight: 700;
-    font-style: italic;
-    color: var(--ink);
-  }
-  .chrome-back {
-    pointer-events: auto;
-    text-decoration: none;
-    color: var(--ink-soft);
-    transition: color 0.2s;
-  }
-  .chrome-back:hover { color: var(--accent); }
-  .chrome-back::before { content: "← "; color: var(--accent); }
-
-  /* ============= DECK ============= */
+  /* DECK */
   .deck {
     position: relative;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    padding-top: 55px;
   }
-
   .slide {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 80px 64px 80px;
+    padding: 56px 64px 80px;
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
     pointer-events: none;
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
   }
   .slide.active {
     opacity: 1;
@@ -354,9 +423,7 @@
     pointer-events: auto;
     z-index: 2;
   }
-  .slide.prev {
-    transform: translateY(-40px);
-  }
+  .slide.prev { transform: translateY(-30px); }
 
   .slide-inner {
     width: 100%;
@@ -366,25 +433,25 @@
 
   .slide .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
   }
   .slide.active .reveal {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.25s;
+    transition-delay: 0.2s;
   }
-  .slide.active .reveal-2 { transition-delay: 0.4s; }
-  .slide.active .reveal-3 { transition-delay: 0.55s; }
-  .slide.active .reveal-4 { transition-delay: 0.7s; }
-  .slide.active .reveal-5 { transition-delay: 0.85s; }
-  .slide.active .reveal-6 { transition-delay: 1.0s; }
-  .slide.active .reveal-7 { transition-delay: 1.15s; }
+  .slide.active .reveal-2 { transition-delay: 0.32s; }
+  .slide.active .reveal-3 { transition-delay: 0.44s; }
+  .slide.active .reveal-4 { transition-delay: 0.56s; }
+  .slide.active .reveal-5 { transition-delay: 0.68s; }
+  .slide.active .reveal-6 { transition-delay: 0.8s; }
+  .slide.active .reveal-7 { transition-delay: 0.92s; }
 
-  /* Navigation dots */
+  /* NAV */
   .nav {
     position: fixed;
-    right: 28px;
+    right: 24px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -396,16 +463,15 @@
     width: 8px;
     height: 8px;
     border: 1.5px solid var(--ink);
-    border-radius: 50%;
     cursor: pointer;
     background: transparent;
     transition: all 0.3s var(--ease);
     position: relative;
   }
-  .nav-dot:hover { background: var(--accent-soft); }
+  .nav-dot:hover { background: var(--yellow); }
   .nav-dot.active {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--blue);
+    border-color: var(--blue);
     transform: scale(1.4);
   }
   .nav-dot::after {
@@ -416,95 +482,87 @@
     transform: translateY(-50%);
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--ink);
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
-    background: var(--paper);
+    background: #fff;
     padding: 4px 10px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--ink);
   }
   .nav-dot:hover::after { opacity: 1; }
 
-  /* Arrows */
   .arrows {
     position: fixed;
-    right: 28px;
-    bottom: 28px;
+    right: 24px;
+    bottom: 24px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     z-index: 250;
   }
   .arrow-btn {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border: 1.5px solid var(--ink);
-    background: var(--paper);
+    background: #fff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--ink);
     transition: all 0.2s var(--ease);
   }
   .arrow-btn:hover:not(:disabled) {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--paper);
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
   }
-  .arrow-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+  .arrow-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
   .counter {
     position: fixed;
-    bottom: 28px;
-    left: 28px;
+    bottom: 24px;
+    left: 24px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--ink-soft);
     z-index: 200;
     pointer-events: none;
   }
   .counter .current {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
-    font-style: italic;
-    color: var(--accent);
+    color: var(--blue);
   }
 
   .hint {
     position: fixed;
-    bottom: 28px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.15em;
     text-transform: uppercase;
+    letter-spacing: 0.12em;
     color: var(--ink-soft);
     z-index: 200;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.7;
     display: flex;
-    gap: 16px;
+    gap: 12px;
     align-items: center;
   }
   .hint kbd {
-    font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--ink-soft);
     padding: 2px 6px;
-    border-radius: 3px;
     font-size: 9px;
   }
 
@@ -512,569 +570,592 @@
   .label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
+    letter-spacing: 0.15em;
     color: var(--ink-soft);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
   .label::before {
     content: "";
-    width: 40px;
-    height: 1.5px;
-    background: var(--accent);
+    width: 32px;
+    height: 2px;
+    background: var(--blue);
   }
 
   h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(48px, 7vw, 96px);
-    line-height: 0.95;
+    font-weight: 800;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.02;
     letter-spacing: -0.035em;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
   }
-  h1 .num { font-style: italic; color: var(--accent); font-weight: 500; }
-  h1 em { font-style: italic; color: var(--accent); font-weight: 500; }
+  h1 .num { color: var(--blue); }
+  h1 .underline { border-bottom: 8px solid var(--yellow); }
 
   h2 {
-    font-family: 'Fraunces', serif;
     font-weight: 700;
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 1.0;
+    font-size: clamp(32px, 4.5vw, 56px);
+    line-height: 1.05;
     letter-spacing: -0.03em;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     max-width: 1100px;
   }
-  h2 em { font-style: italic; color: var(--accent); font-weight: 500; }
+  h2 .accent { color: var(--blue); }
+  h2 .underline { border-bottom: 6px solid var(--yellow); }
 
   .lead {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(20px, 2vw, 26px);
-    line-height: 1.45;
-    max-width: 800px;
-    font-weight: 300;
+    font-size: clamp(17px, 1.5vw, 21px);
+    line-height: 1.5;
+    max-width: 820px;
+    color: var(--ink-soft);
   }
-  .lead em { font-style: italic; color: var(--accent); }
+  .lead .accent { color: var(--blue); font-weight: 500; }
 
   .hero-meta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--ink-soft);
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     display: flex;
-    gap: 28px;
+    gap: 20px;
     flex-wrap: wrap;
   }
-  .hero-meta span::before { content: "◇ "; color: var(--accent); }
-
-  .hero-tagline {
-    margin-top: 32px;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.45em;
-    font-weight: 500;
-    color: var(--ink-soft);
-    letter-spacing: -0.01em;
+  .hero-meta span {
+    padding: 4px 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
   }
 
-  .slide.dark { background: var(--ink); color: var(--paper); }
-  .slide.dark .label { color: rgba(253,251,245,0.5); }
-  .slide.dark .label::before { background: var(--accent-soft); }
-
-  .quote-mark {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(200px, 30vw, 400px);
-    line-height: 0.5;
-    color: var(--accent);
-    opacity: 0.18;
-    position: absolute;
-    top: 80px;
-    left: 40px;
-    pointer-events: none;
+  /* Dark slide */
+  .slide.dark {
+    background: var(--bg-dark);
+    color: #fff;
   }
+  .slide.dark .label { color: rgba(255,255,255,0.5); }
+  .slide.dark h2 { color: #fff; }
+  .slide.dark h2 .accent { color: var(--yellow); }
+
   .key-text {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(32px, 4.5vw, 60px);
+    font-size: clamp(28px, 4vw, 48px);
     line-height: 1.15;
-    font-weight: 500;
-    font-style: italic;
+    font-weight: 600;
     max-width: 1000px;
-    position: relative;
+    letter-spacing: -0.025em;
   }
   .key-text strong {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 2px 8px;
     font-weight: 700;
-    font-style: normal;
-    color: var(--accent-soft);
   }
   .key-attr {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.15em;
+    font-size: 11px;
     text-transform: uppercase;
-    margin-top: 40px;
+    letter-spacing: 0.15em;
+    margin-top: 36px;
     opacity: 0.5;
   }
 
+  /* TIMELINE */
   .timeline {
-    display: grid;
-    gap: 0;
-    border: 1.5px solid var(--line);
-    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    background: #fff;
   }
   .timeline-item {
     display: grid;
-    grid-template-columns: 140px 90px 1fr;
+    grid-template-columns: 120px 70px 1fr;
     align-items: start;
-    padding: 28px 36px;
+    padding: 24px 32px;
     border-bottom: 1px solid var(--line);
-    gap: 28px;
+    gap: 24px;
     transition: background 0.2s;
   }
   .timeline-item:last-child { border-bottom: none; }
-  .timeline-item:hover { background: var(--bg-alt); }
+  .timeline-item:hover { background: var(--bg-soft); }
   .timeline-time {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
     letter-spacing: 0.05em;
     padding-top: 8px;
   }
   .timeline-num {
-    font-family: 'Fraunces', serif;
-    font-size: 48px;
-    font-weight: 900;
-    font-style: italic;
+    font-weight: 800;
+    font-size: 36px;
     line-height: 1;
+    color: var(--ink);
   }
   .timeline-content h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 6px;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
   }
   .timeline-content p {
     color: var(--ink-soft);
-    font-size: 15px;
+    font-size: 14.5px;
   }
 
+  /* GROUPS */
   .groups {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
-    border: 1.5px solid var(--line);
-    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    background: #fff;
     margin-bottom: 32px;
   }
   .group {
-    padding: 36px 28px;
+    padding: 32px 28px;
     border-right: 1px solid var(--line);
     display: flex;
     flex-direction: column;
+    position: relative;
   }
+  .group::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+  }
+  .group:nth-child(1)::before { background: var(--blue); }
+  .group:nth-child(2)::before { background: var(--yellow); }
+  .group:nth-child(3)::before { background: var(--ink); }
   .group:last-child { border-right: none; }
   .group-num {
-    font-family: 'Fraunces', serif;
-    font-size: 96px;
-    font-weight: 900;
-    font-style: italic;
+    font-weight: 800;
+    font-size: 64px;
     line-height: 0.9;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+    color: var(--ink);
+    letter-spacing: -0.03em;
   }
-  .group:nth-child(1) .group-num { color: var(--g1); }
-  .group:nth-child(2) .group-num { color: var(--g2); }
-  .group:nth-child(3) .group-num { color: var(--g3); }
+  .group:nth-child(1) .group-num { color: var(--blue); }
   .group-title {
-    font-family: 'Fraunces', serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     letter-spacing: -0.01em;
+    min-height: 64px;
   }
   .group-translation {
-    font-size: 15px;
+    font-size: 14.5px;
     color: var(--ink-soft);
     font-style: italic;
-    margin-bottom: 24px;
-    padding-bottom: 24px;
-    border-bottom: 1px dashed var(--ink-soft);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--line-strong);
   }
   .group-verbs {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--ink-soft);
     margin-bottom: 6px;
   }
   .group-verbs-list {
-    font-family: 'Fraunces', serif;
-    font-size: 15px;
-    font-style: italic;
+    font-size: 14px;
     line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
   }
+
   .cycle {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
     flex-wrap: wrap;
-    padding: 28px;
-    font-family: 'Fraunces', serif;
-    font-size: clamp(22px, 2.8vw, 32px);
-    font-weight: 500;
-    background: var(--bg-alt);
-    border: 1.5px solid var(--line);
+    padding: 24px;
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 700;
+    background: var(--bg-soft);
+    border: 1.5px solid var(--ink);
   }
   .cycle-step {
-    padding: 10px 22px;
-    border: 2px solid var(--line);
-    background: var(--paper);
+    padding: 10px 20px;
+    border: 2px solid var(--ink);
+    background: #fff;
   }
-  .cycle-arrow { font-size: 0.7em; color: var(--accent); }
+  .cycle-arrow {
+    font-size: 0.75em;
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+  }
 
+  /* ARGUMENTS */
   .args {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    margin-top: 24px;
+    gap: 24px;
+    margin-top: 16px;
   }
   .arg {
-    padding: 36px 32px;
-    background: var(--paper);
-    border: 1.5px solid var(--line);
+    padding: 32px 28px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
     position: relative;
   }
   .arg-num {
     position: absolute;
-    top: -22px;
-    left: 28px;
-    background: var(--accent);
-    color: var(--paper);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
+    top: -18px;
+    left: 24px;
+    background: var(--blue);
+    color: #fff;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-style: italic;
-    font-size: 22px;
+    font-weight: 800;
+    font-size: 16px;
   }
   .arg h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
-    margin: 14px 0 16px;
-    letter-spacing: -0.01em;
+    margin: 14px 0 14px;
+    letter-spacing: -0.015em;
   }
   .arg p {
-    font-size: 15.5px;
+    font-size: 15px;
     color: var(--ink-soft);
     line-height: 1.6;
   }
+  .arg strong { color: var(--ink); }
 
+  /* PROMPTS */
   .prompt-intro {
-    font-size: 17px;
+    font-size: 16px;
     color: var(--ink-soft);
-    margin-bottom: 28px;
-    max-width: 800px;
+    margin-bottom: 24px;
+    max-width: 820px;
+  }
+  .prompt-intro strong {
+    color: var(--ink);
+    background: var(--yellow);
+    padding: 1px 6px;
   }
   .prompt-block {
     background: var(--ink);
-    color: var(--paper);
-    padding: 40px;
+    color: #fff;
+    padding: 36px 36px 32px;
     position: relative;
     overflow: auto;
-    max-height: 60vh;
+    max-height: 58vh;
     border: 1.5px solid var(--ink);
   }
   .prompt-label {
     position: absolute;
-    top: -1px;
-    left: -1px;
-    background: var(--accent);
-    color: var(--paper);
-    padding: 8px 18px;
+    top: 0;
+    left: 0;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 6px 14px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    font-size: 10px;
     text-transform: uppercase;
-    font-weight: 500;
+    letter-spacing: 0.1em;
+    font-weight: 600;
   }
   .prompt-block pre {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14.5px;
-    line-height: 1.75;
+    font-size: 13.5px;
+    line-height: 1.7;
     white-space: pre-wrap;
     word-break: break-word;
     margin-top: 24px;
   }
   .copy-btn {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 12px;
     background: transparent;
-    border: 1px solid var(--paper);
-    color: var(--paper);
-    padding: 8px 16px;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 7px 14px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.05em;
+    font-size: 10px;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.2s;
+    font-weight: 500;
   }
   .copy-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--blue);
+    border-color: var(--blue);
   }
   .copy-btn.copied {
-    background: var(--g1);
-    border-color: var(--g1);
+    background: var(--green);
+    border-color: var(--green);
   }
 
-  .homework { display: grid; gap: 18px; }
+  /* HOMEWORK */
+  .homework { display: grid; gap: 14px; }
   .hw-item {
     display: grid;
-    grid-template-columns: 90px 1fr auto;
-    gap: 28px;
-    padding: 32px 36px;
-    background: var(--paper);
-    border: 1.5px solid var(--line);
+    grid-template-columns: 70px 1fr auto;
+    gap: 24px;
+    padding: 28px 32px;
+    background: #fff;
+    border: 1.5px solid #fff;
     align-items: center;
   }
   .hw-num {
-    font-family: 'Fraunces', serif;
-    font-size: 64px;
-    font-weight: 900;
-    font-style: italic;
+    font-weight: 800;
+    font-size: 44px;
     line-height: 1;
-    color: var(--accent);
+    color: var(--blue);
+    letter-spacing: -0.03em;
   }
   .hw-content h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
   }
   .hw-content p {
-    font-size: 15px;
+    font-size: 14.5px;
     color: var(--ink-soft);
   }
   .hw-tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 8px 14px;
-    background: var(--bg-alt);
-    border: 1px solid var(--line);
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    border: 1px solid var(--ink);
     white-space: nowrap;
+    font-weight: 500;
+    background: var(--bg-soft);
+    color: var(--ink);
   }
-  .hw-tag.required { background: var(--accent); color: var(--paper); border-color: var(--accent); }
-  .hw-tag.optional { background: var(--bg); }
+  .hw-tag.required { background: var(--yellow); border-color: var(--ink); }
+  .hw-tag.optional { background: #fff; }
 
+  /* FAQ */
   .faq-item {
     border-bottom: 1px solid var(--line);
-    padding: 24px 0;
+    padding: 22px 0;
     cursor: pointer;
   }
   .faq-item:last-child { border-bottom: none; }
   .faq-q {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
-    font-weight: 500;
-    font-style: italic;
+    font-size: 19px;
+    font-weight: 600;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
+    color: var(--ink);
   }
   .faq-q::before {
-    content: "—";
-    color: var(--accent);
+    content: "?";
+    color: #fff;
+    background: var(--blue);
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
     flex-shrink: 0;
   }
   .faq-toggle {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 26px;
-    color: var(--accent);
+    font-size: 22px;
+    color: var(--blue);
     transition: transform 0.3s;
     flex-shrink: 0;
+    font-weight: 600;
   }
   .faq-item.open .faq-toggle { transform: rotate(45deg); }
   .faq-a {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s, margin-top 0.3s, padding-top 0.3s;
+    transition: max-height 0.4s, margin-top 0.3s;
     color: var(--ink-soft);
-    font-size: 16px;
-    padding-left: 28px;
+    font-size: 15.5px;
+    padding-left: 44px;
   }
   .faq-item.open .faq-a {
     max-height: 240px;
-    margin-top: 16px;
+    margin-top: 14px;
   }
 
+  /* FINAL */
   .final-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
+    gap: 56px;
+    align-items: start;
   }
   .final-big {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(60px, 10vw, 140px);
-    line-height: 0.9;
-    font-weight: 900;
+    font-weight: 800;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.95;
     letter-spacing: -0.04em;
   }
-  .final-big em {
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 500;
-  }
+  .final-big .b1 { color: var(--blue); }
+  .final-big .b2 { color: var(--ink); }
+  .final-big .b3 { background: var(--yellow); padding: 0 12px; display: inline-block; }
   .final-list {
     list-style: none;
     counter-reset: final;
   }
   .final-list li {
     counter-increment: final;
-    padding: 20px 0;
+    padding: 18px 0;
     border-bottom: 1px solid var(--line);
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 500;
     display: flex;
-    gap: 24px;
+    gap: 20px;
     align-items: baseline;
   }
   .final-list li::before {
     content: counter(final, decimal-leading-zero);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--accent);
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    letter-spacing: 0.08em;
     min-width: 30px;
   }
 
   @media (max-width: 968px) {
-    .slide { padding: 90px 32px 100px; }
+    .slide { padding: 40px 24px 80px; }
     .groups { grid-template-columns: 1fr; }
     .group { border-right: none; border-bottom: 1px solid var(--line); }
     .group:last-child { border-bottom: none; }
-    .group-num { font-size: 64px; }
-    .args { grid-template-columns: 1fr; gap: 36px; }
-    .timeline-item { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
-    .hw-item { grid-template-columns: 1fr; gap: 14px; padding: 24px; }
+    .group-title { min-height: auto; }
+    .args { grid-template-columns: 1fr; gap: 32px; }
+    .timeline-item { grid-template-columns: 1fr; gap: 8px; padding: 20px; }
+    .hw-item { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
     .final-grid { grid-template-columns: 1fr; gap: 32px; }
-    .cycle { gap: 12px; padding: 20px; }
-    .quote-mark { font-size: 200px; }
     .nav { display: none; }
-    .timer-float { right: 70px; padding: 6px 12px; }
+    .timer-float { right: 86px; padding: 5px 10px; }
     .timer-float .timer-label-small { display: none; }
   }
-
-  @media (max-width: 640px) {
-    .slide { padding: 80px 20px 90px; }
-    .arrows { right: 16px; bottom: 16px; }
-    .counter { left: 16px; bottom: 16px; }
+  @media (max-width: 600px) {
+    .slide { padding: 32px 20px 80px; }
+    .arrows { right: 14px; bottom: 14px; }
+    .counter { left: 14px; bottom: 14px; }
     .hint { display: none; }
-    .chrome-top { padding: 8px 20px; font-size: 10px; }
-    .arrow-btn { width: 40px; height: 40px; }
-    .timer-float { right: 60px; }
+    .chrome-top-inner { padding: 0 16px; }
+    .chrome-title { font-size: 11px; }
+    .chrome-right { display: none; }
+    .arrow-btn { width: 36px; height: 36px; }
   }
 </style>
 </head>
 <body>
 
-<div class="grain"></div>
-
 <!-- ============= START OVERLAY ============= -->
 <div class="start-overlay" id="startOverlay">
-  <a href="index.html" class="start-back">До всіх занять</a>
-
-  <div class="start-meta">
-    <span>математика · нуш</span>
-    <span>30 хвилин</span>
-    <span>gemini</span>
+  <div class="gov-bar">
+    <span class="gov-flag"></span>
+    <span>Офіційний веб-ресурс · Україна</span>
+  </div>
+  <div class="start-header">
+    <a href="index.html" class="logo-mini">
+      <div class="logo-mini-mark">МОН</div>
+      <div class="logo-mini-text">Міністерство освіти і науки</div>
+    </a>
+    <a href="index.html" class="start-back">До всіх занять</a>
   </div>
 
-  <h1 class="start-title">
-    <span class="num">3</span> групи результатів —<br>
-    і чому це <em>круто</em>
-  </h1>
+  <div class="start-main">
+    <div class="start-content">
+      <div class="start-tag">математика · нуш · заняття 01</div>
 
-  <p class="start-lead">
-    Природний цикл роботи з математичною задачею +
-    два промпти для Gemini, які генерують задачу й рубрику оцінювання
-    за 10 хвилин замість години.
-  </p>
+      <h1 class="start-title">
+        <span class="num">3</span> групи результатів —<br>
+        і чому це <span class="underline">працює</span>
+      </h1>
 
-  <div class="start-timer-preview">30:00</div>
-  <div class="start-timer-label">— тривалість заняття —</div>
+      <p class="start-lead">
+        Природний цикл роботи з математичною задачею та два промпти для Gemini,
+        які генерують задачу й рубрику оцінювання за 10 хвилин замість години.
+      </p>
 
-  <button class="start-btn" id="startBtn">Давайте вчитися</button>
+      <div class="start-timer-box">
+        <div class="start-timer-label">Тривалість заняття</div>
+        <div class="start-timer-value">30:00</div>
+      </div>
 
-  <div class="start-note">після натискання таймер запуститься й залишиться у кутку</div>
+      <div>
+        <button class="start-btn" id="startBtn">
+          Давайте вчитися
+        </button>
+      </div>
+
+      <div class="start-note">після натискання таймер запуститься й залишиться у кутку</div>
+    </div>
+  </div>
 </div>
 
 <!-- ============= TOP CHROME ============= -->
-<a href="index.html" class="chrome-top">
-  <span class="chrome-back">До всіх занять</span>
-  <span class="chrome-top-title">3 групи результатів · математика нуш</span>
-  <span>gemini · 2 промпти</span>
-</a>
+<div class="chrome-top">
+  <div class="chrome-top-inner">
+    <a href="index.html" class="chrome-back">До всіх занять</a>
+    <div class="chrome-title">
+      <span class="chrome-title-tag">Математика</span>
+      Три групи результатів
+    </div>
+    <div class="chrome-right">МОН України · НУШ</div>
+  </div>
+</div>
 
-<!-- ============= PROGRESS BAR ============= -->
+<!-- PROGRESS -->
 <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
 
-<!-- ============= FLOATING TIMER ============= -->
+<!-- TIMER -->
 <div class="timer-float" id="timerFloat">
   <div class="timer-dot"></div>
   <div class="timer-value" id="timerValue">30:00</div>
   <div class="timer-label-small" id="timerLabel">залишилось</div>
 </div>
 
-<!-- ============= DECK ============= -->
+<!-- DECK -->
 <div class="deck" id="deck">
 
   <!-- SLIDE 01: HERO -->
   <div class="slide active" data-label="вступ">
     <div class="slide-inner">
       <div class="hero-meta reveal">
-        <span>для вчителів математики</span>
-        <span>один інструмент: gemini</span>
-        <span>рекомендації мон №1093</span>
+        <span>Для вчителів математики</span>
+        <span>Інструмент: Gemini</span>
+        <span>Рекомендації МОН №1093</span>
       </div>
       <h1 class="reveal reveal-2">
         <span class="num">3</span> групи результатів —<br>
-        і чому це <em>круто</em>
+        і чому це <span class="underline">працює</span>
       </h1>
       <p class="lead reveal reveal-3">
-        Групи результатів — це не нова бюрократія. Це <em>природний цикл</em>
+        Групи результатів — це не нова бюрократія. Це <span class="accent">природний цикл</span>
         роботи з математичною задачею, який ви й так використовуєте.
         Сьогодні робимо його видимим — і вчимося генерувати завдання й рубрики
         через Gemini за 10 хвилин замість години.
       </p>
-      <div class="hero-tagline reveal reveal-4">
-        — тридцять хвилин, які звільнять вам години —
-      </div>
     </div>
   </div>
 
   <!-- SLIDE 02: KEY MESSAGE -->
   <div class="slide dark" data-label="ключова думка">
-    <div class="quote-mark reveal">„</div>
     <div class="slide-inner">
       <div class="label reveal">головна думка</div>
       <div class="key-text reveal reveal-2">
@@ -1090,7 +1171,7 @@
   <div class="slide" data-label="таймінг">
     <div class="slide-inner">
       <div class="label reveal">структура · хронометраж</div>
-      <h2 class="reveal reveal-2">30 хвилин, <em>п'ять блоків</em>, нуль води</h2>
+      <h2 class="reveal reveal-2">30 хвилин, <span class="accent">п'ять блоків</span>, нуль води</h2>
 
       <div class="timeline reveal reveal-3">
         <div class="timeline-item">
@@ -1113,7 +1194,7 @@
           <div class="timeline-time">8 хв</div>
           <div class="timeline-num">03</div>
           <div class="timeline-content">
-            <h3>Демо: Gemini генерує завдання</h3>
+            <h3>Демонстрація: Gemini генерує завдання</h3>
             <p>Серце заняття. Один промпт-шаблон, який вчитель запам'ятає й забере з собою. Запуск наживо.</p>
           </div>
         </div>
@@ -1121,7 +1202,7 @@
           <div class="timeline-time">8 хв</div>
           <div class="timeline-num">04</div>
           <div class="timeline-content">
-            <h3>Демо: схема оцінювання (рубрика)</h3>
+            <h3>Демонстрація: схема оцінювання</h3>
             <p>Другий промпт — для рубрики за 3 групами × 4 рівні. Показуємо, як редагувати ШІ під свій клас.</p>
           </div>
         </div>
@@ -1138,10 +1219,10 @@
   </div>
 
   <!-- SLIDE 04: THREE GROUPS -->
-  <div class="slide" data-label="3 групи" style="background: var(--bg-alt);">
+  <div class="slide" data-label="3 групи" style="background: var(--bg-soft);">
     <div class="slide-inner">
       <div class="label reveal">ядро · три групи результатів</div>
-      <h2 class="reveal reveal-2">Мовою <em>живого вчителя</em></h2>
+      <h2 class="reveal reveal-2">Мовою <span class="underline">живого вчителя</span></h2>
 
       <div class="groups reveal reveal-3">
         <div class="group">
@@ -1178,10 +1259,10 @@
   </div>
 
   <!-- SLIDE 05: ARGUMENTS -->
-  <div class="slide" data-label="чому це ок">
+  <div class="slide" data-label="чому це працює">
     <div class="slide-inner">
       <div class="label reveal">переконання · чому це працює</div>
-      <h2 class="reveal reveal-2">Три причини, чому <em>3 групи</em> — це справді ОК</h2>
+      <h2 class="reveal reveal-2">Три причини, чому <span class="accent">3 групи</span> — це справді ОК</h2>
 
       <div class="args">
         <div class="arg reveal reveal-3">
@@ -1192,22 +1273,22 @@
         <div class="arg reveal reveal-4">
           <div class="arg-num">2</div>
           <h3>Діагностика, не вирок</h3>
-          <p>Одразу видно, де «провал» класу: на моделюванні, на техніці чи на інтерпретації. Це підказує, що підтягувати на наступному уроці. Оцінка стає інструментом, а не штампом.</p>
+          <p>Одразу видно, де «провал» класу: на моделюванні, на техніці чи на інтерпретації. Це підказує, що підтягувати на наступному уроці. Оцінка стає <strong>інструментом</strong>, а не штампом.</p>
         </div>
         <div class="arg reveal reveal-5">
           <div class="arg-num">3</div>
           <h3>Менше суперечок</h3>
-          <p>Рубрика за 3 групами = менше дискусій з батьками типу «а чому 8, а не 9?». У вас є таблиця з чіткими описами рівнів. Розмова з оцінювальної переходить у методичну.</p>
+          <p>Рубрика за 3 групами = менше дискусій з батьками типу «а чому 8, а не 9?». У вас є таблиця з чіткими описами рівнів. Розмова з оцінювальної переходить у <strong>методичну</strong>.</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- SLIDE 06: PROMPT 1 -->
-  <div class="slide" data-label="промпт #1" style="background: var(--bg-alt);">
+  <div class="slide" data-label="промпт #1" style="background: var(--bg-soft);">
     <div class="slide-inner">
       <div class="label reveal">інструмент · промпт #1</div>
-      <h2 class="reveal reveal-2">Промпт для генерації <em>задачі</em> за 3 групами</h2>
+      <h2 class="reveal reveal-2">Промпт для генерації <span class="accent">задачі</span> за 3 групами</h2>
       <p class="prompt-intro reveal reveal-3">
         Скопіюйте, замініть <strong>[ТЕМА]</strong> і <strong>[КЛАС]</strong> на свої — і вставте в Gemini. Поки модель пише — коментуйте вголос, що очікуєте побачити.
       </p>
@@ -1242,7 +1323,7 @@
   <div class="slide" data-label="промпт #2">
     <div class="slide-inner">
       <div class="label reveal">інструмент · промпт #2</div>
-      <h2 class="reveal reveal-2">Промпт для генерації <em>рубрики оцінювання</em></h2>
+      <h2 class="reveal reveal-2">Промпт для генерації <span class="accent">рубрики оцінювання</span></h2>
       <p class="prompt-intro reveal reveal-3">
         Запускайте в тому ж чаті Gemini — він уже пам'ятає задачу. Готову таблицю потім обов'язково редагуйте під свій клас: ШІ часто дає «середнє по лікарні».
       </p>
@@ -1268,7 +1349,7 @@
   <div class="slide dark" data-label="домашнє завдання">
     <div class="slide-inner">
       <div class="label reveal">після заняття · домашня робота</div>
-      <h2 class="reveal reveal-2" style="color: var(--paper);">Три завдання — <em style="color: var(--accent-soft);">різного калібру</em></h2>
+      <h2 class="reveal reveal-2">Три завдання — <span class="accent">різного калібру</span></h2>
 
       <div class="homework">
         <div class="hw-item reveal reveal-3">
@@ -1302,10 +1383,10 @@
   </div>
 
   <!-- SLIDE 09: FAQ -->
-  <div class="slide" data-label="ймовірні запитання">
+  <div class="slide" data-label="запитання">
     <div class="slide-inner">
       <div class="label reveal">під рукою · ймовірні запитання</div>
-      <h2 class="reveal reveal-2">Запитання, на які ви <em>точно</em> отримаєте відповідь</h2>
+      <h2 class="reveal reveal-2">Запитання, на які ви <span class="accent">точно</span> отримаєте</h2>
 
       <div class="faq reveal reveal-3">
         <div class="faq-item">
@@ -1341,15 +1422,15 @@
   </div>
 
   <!-- SLIDE 10: FINAL -->
-  <div class="slide" data-label="дякую" style="background: var(--bg-alt);">
+  <div class="slide" data-label="підсумок" style="background: var(--bg-soft);">
     <div class="slide-inner">
       <div class="final-grid">
         <div>
-          <div class="label reveal">резюме · одним рядком</div>
+          <div class="label reveal">резюме одним рядком</div>
           <div class="final-big reveal reveal-2">
-            Зрозумів.<br>
-            <em>Розв'язав.</em><br>
-            Перевірив.
+            <span class="b1">Зрозумів.</span><br>
+            <span class="b2">Розв'язав.</span><br>
+            <span class="b3">Перевірив.</span>
           </div>
         </div>
         <div>
@@ -1357,7 +1438,7 @@
           <ul class="final-list">
             <li class="reveal reveal-4">3 групи результатів — це цикл роботи з задачею.</li>
             <li class="reveal reveal-5">Gemini + 2 промпти = задача й рубрика за 10 хвилин.</li>
-            <li class="reveal reveal-6">Вчитель завжди редагує те, що згенерував ШІ.</li>
+            <li class="reveal reveal-6">Учитель завжди редагує те, що згенерував ШІ.</li>
             <li class="reveal reveal-7">Домашка чекає — почати з обов'язкового.</li>
           </ul>
         </div>
@@ -1367,7 +1448,7 @@
 
 </div>
 
-<!-- NAV DOTS -->
+<!-- NAV -->
 <div class="nav" id="nav"></div>
 
 <!-- ARROWS -->
@@ -1383,17 +1464,11 @@
 
 <!-- HINT -->
 <div class="hint">
-  <span>навігація:</span>
-  <kbd>↑</kbd><kbd>↓</kbd>
-  <span>або</span>
-  <kbd>скрол</kbd>
-  <span>або</span>
-  <kbd>space</kbd>
+  <kbd>↑</kbd><kbd>↓</kbd> <span>або скрол</span>
 </div>
 
 <script>
 (function() {
-  // ================= DECK NAVIGATION =================
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
   let current = 0;
@@ -1412,7 +1487,6 @@
     const dot = document.createElement('button');
     dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
     dot.setAttribute('data-label', slide.getAttribute('data-label') || `слайд ${i+1}`);
-    dot.setAttribute('aria-label', `перейти на слайд ${i+1}`);
     dot.addEventListener('click', () => goTo(i));
     navContainer.appendChild(dot);
   });
@@ -1434,26 +1508,20 @@
   }
 
   function goTo(index) {
-    if (animating) return;
-    if (index < 0 || index >= total) return;
-    if (index === current) return;
+    if (animating || index < 0 || index >= total || index === current) return;
     animating = true;
     current = index;
     update();
-    setTimeout(() => { animating = false; }, 750);
+    setTimeout(() => { animating = false; }, 650);
   }
-
   function next() { goTo(current + 1); }
   function prev() { goTo(current - 1); }
 
-  prevBtn.addEventListener('click', next === prev ? prev : next === next ? next : null);
-  // Fix: assign separately
   prevBtn.onclick = prev;
   nextBtn.onclick = next;
 
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    // Block deck navigation while start overlay is visible
     if (!startOverlay.classList.contains('hidden')) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -1462,27 +1530,12 @@
       return;
     }
     switch(e.key) {
-      case 'ArrowDown':
-      case 'ArrowRight':
-      case 'PageDown':
-      case ' ':
-        e.preventDefault();
-        next();
-        break;
-      case 'ArrowUp':
-      case 'ArrowLeft':
-      case 'PageUp':
-        e.preventDefault();
-        prev();
-        break;
-      case 'Home':
-        e.preventDefault();
-        goTo(0);
-        break;
-      case 'End':
-        e.preventDefault();
-        goTo(total - 1);
-        break;
+      case 'ArrowDown': case 'ArrowRight': case 'PageDown': case ' ':
+        e.preventDefault(); next(); break;
+      case 'ArrowUp': case 'ArrowLeft': case 'PageUp':
+        e.preventDefault(); prev(); break;
+      case 'Home': e.preventDefault(); goTo(0); break;
+      case 'End': e.preventDefault(); goTo(total - 1); break;
     }
   });
 
@@ -1501,22 +1554,19 @@
     clearTimeout(wheelTimer);
     wheelTimer = setTimeout(() => {
       if (Math.abs(wheelAccum) > 30) {
-        if (wheelAccum > 0) next();
-        else prev();
+        if (wheelAccum > 0) next(); else prev();
       }
       wheelAccum = 0;
     }, 50);
   }, { passive: false });
 
   let touchStartY = 0;
-  let touchEndY = 0;
   document.addEventListener('touchstart', (e) => {
     touchStartY = e.changedTouches[0].screenY;
   }, { passive: true });
   document.addEventListener('touchend', (e) => {
     if (!startOverlay.classList.contains('hidden')) return;
-    touchEndY = e.changedTouches[0].screenY;
-    const diff = touchStartY - touchEndY;
+    const diff = touchStartY - e.changedTouches[0].screenY;
     const active = slides[current];
     const atTop = active.scrollTop === 0;
     const atBottom = Math.abs(active.scrollHeight - active.clientHeight - active.scrollTop) < 2;
@@ -1526,12 +1576,10 @@
     }
   }, { passive: true });
 
-  // ================= COPY BUTTONS =================
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const targetId = btn.getAttribute('data-target');
-      const text = document.getElementById(targetId).textContent;
+      const text = document.getElementById(btn.getAttribute('data-target')).textContent;
       navigator.clipboard.writeText(text).then(() => {
         const original = btn.textContent;
         btn.textContent = 'скопійовано ✓';
@@ -1544,7 +1592,6 @@
     });
   });
 
-  // ================= FAQ =================
   document.querySelectorAll('.faq-item').forEach(item => {
     item.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1552,47 +1599,37 @@
     });
   });
 
-  // ================= START OVERLAY + TIMER =================
+  // TIMER
   const startOverlay = document.getElementById('startOverlay');
   const startBtn = document.getElementById('startBtn');
   const timerFloat = document.getElementById('timerFloat');
   const timerValue = document.getElementById('timerValue');
   const timerLabel = document.getElementById('timerLabel');
 
-  const DURATION_MS = 30 * 60 * 1000; // 30 minutes
+  const DURATION_MS = 30 * 60 * 1000;
   let timerStart = null;
-  let timerInterval = null;
   let expired = false;
 
-  function formatTime(ms) {
+  function fmt(ms) {
     if (ms < 0) ms = 0;
-    const total = Math.ceil(ms / 1000);
-    const m = Math.floor(total / 60);
-    const s = total % 60;
-    return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    const t = Math.ceil(ms / 1000);
+    return String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
   }
-
-  function formatOverTime(ms) {
-    const total = Math.floor(Math.abs(ms) / 1000);
-    const m = Math.floor(total / 60);
-    const s = total % 60;
-    return '+' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  function fmtOver(ms) {
+    const t = Math.floor(Math.abs(ms) / 1000);
+    return '+' + String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
   }
 
   function updateTimer() {
     if (!timerStart) return;
-    const elapsed = Date.now() - timerStart;
-    const remaining = DURATION_MS - elapsed;
-
+    const remaining = DURATION_MS - (Date.now() - timerStart);
     if (remaining > 0) {
-      timerValue.textContent = formatTime(remaining);
-      // Warn when 5 min left
+      timerValue.textContent = fmt(remaining);
       if (remaining <= 5 * 60 * 1000 && !timerFloat.classList.contains('warning')) {
         timerFloat.classList.add('warning');
         timerLabel.textContent = 'мало';
       }
     } else {
-      // Time is up
       if (!expired) {
         expired = true;
         timerFloat.classList.remove('warning');
@@ -1600,7 +1637,7 @@
         timerLabel.textContent = 'час вийшов';
         document.documentElement.classList.add('bw-mode');
       }
-      timerValue.textContent = formatOverTime(remaining);
+      timerValue.textContent = fmtOver(remaining);
     }
   }
 
@@ -1610,13 +1647,12 @@
       timerFloat.classList.add('visible');
       timerStart = Date.now();
       updateTimer();
-      timerInterval = setInterval(updateTimer, 1000);
+      setInterval(updateTimer, 1000);
     }, 400);
   }
 
   startBtn.addEventListener('click', startSession);
 
-  // Initial update
   update();
 })();
 </script>
