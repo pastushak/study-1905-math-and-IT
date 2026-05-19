@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Три групи результатів · Заняття для вчителів математики | МОН України</title>
+<title>Три групи результатів · Заняття для вчителів математики | ЦПРПП Коломия</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -304,6 +304,22 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--ink-soft);
+  }
+  .chrome-plan {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 12px;
+    border: 1px solid var(--blue);
+    transition: all 0.2s var(--ease);
+  }
+  .chrome-plan:hover {
+    background: var(--blue);
+    color: #fff;
   }
 
   /* PROGRESS BAR */
@@ -901,6 +917,201 @@
     border-color: var(--green);
   }
 
+  /* EXAMPLE OUTPUT BLOCK */
+  .example-output {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+  }
+  .example-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .example-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 4px 10px;
+  }
+  .example-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.05em;
+  }
+  .example-section {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .example-section:last-of-type { border-bottom: none; }
+  .example-section-num {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    padding-top: 4px;
+  }
+  .example-section-num.g1 { color: var(--blue); }
+  .example-section-num.g2 { color: var(--yellow); background: var(--ink); padding: 4px 12px; font-size: 22px; }
+  .example-section-num.g3 { color: var(--red); }
+  .example-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .example-section-content p {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .example-list {
+    list-style: none;
+  }
+  .example-list li {
+    padding: 6px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .example-list li::before {
+    content: "→";
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .example-list li strong { font-weight: 600; }
+  .example-footer {
+    background: var(--bg-soft);
+    padding: 16px 28px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    border-top: 1px solid var(--line);
+  }
+  .example-footer-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 8px;
+  }
+
+  /* ACTIVITY BLOCK */
+  .activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .activity-instruction {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    padding: 32px 28px;
+  }
+  .activity-timer {
+    background: var(--ink);
+    color: #fff;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .activity-timer-val {
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--yellow);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .activity-timer-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.65);
+  }
+  .activity-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .activity-step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .activity-step-num {
+    width: 32px;
+    height: 32px;
+    background: var(--blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .activity-step-text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-top: 6px;
+  }
+  .activity-tips {
+    background: var(--yellow);
+    border: 1.5px solid var(--ink);
+    padding: 28px 28px;
+  }
+  .activity-tips-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    margin-bottom: 16px;
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .activity-tips-list {
+    list-style: none;
+  }
+  .activity-tips-list li {
+    padding: 10px 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+    border-bottom: 1px dashed rgba(15,15,15,0.25);
+  }
+  .activity-tips-list li:last-child { border-bottom: none; }
+
   /* HOMEWORK */
   .homework { display: grid; gap: 14px; }
   .hw-item {
@@ -1072,8 +1283,8 @@
   </div>
   <div class="start-header">
     <a href="index.html" class="logo-mini">
-      <div class="logo-mini-mark">МОН</div>
-      <div class="logo-mini-text">Міністерство освіти і науки</div>
+      <div class="logo-mini-mark">ЦПР</div>
+      <div class="logo-mini-text">ЦПРПП · Коломия</div>
     </a>
     <a href="index.html" class="start-back">До всіх занять</a>
   </div>
@@ -1116,7 +1327,7 @@
       <span class="chrome-title-tag">Математика</span>
       Три групи результатів
     </div>
-    <div class="chrome-right">МОН України · НУШ</div>
+    <a href="matematyka-plan.html" class="chrome-plan" target="_blank" rel="noopener">План лектора ↗</a>
   </div>
 </div>
 
@@ -1290,31 +1501,43 @@
       <div class="label reveal">інструмент · промпт #1</div>
       <h2 class="reveal reveal-2">Промпт для генерації <span class="accent">задачі</span> за 3 групами</h2>
       <p class="prompt-intro reveal reveal-3">
-        Скопіюйте, замініть <strong>[ТЕМА]</strong> і <strong>[КЛАС]</strong> на свої — і вставте в Gemini. Поки модель пише — коментуйте вголос, що очікуєте побачити.
+        Скопіюйте, замініть <strong>[ТЕМА]</strong>, <strong>[КЛАС]</strong> та <strong>[КОНТЕКСТ]</strong> на свої — і вставте в Gemini. Поки модель пише — коментуйте вголос, що очікуєте побачити.
       </p>
 
       <div class="prompt-block reveal reveal-4">
-        <div class="prompt-label">Gemini · prompt 01</div>
+        <div class="prompt-label">Gemini · prompt 01 · розгорнутий</div>
         <button class="copy-btn" data-target="p1">копіювати</button>
-<pre id="p1">Ти — методист з математики НУШ. Склади 1 текстову задачу
-з теми "[ТЕМА]" для [КЛАС] класу так, щоб її розв'язання
-охоплювало 3 групи результатів математичної освітньої галузі:
+<pre id="p1">Ти — досвідчений методист з математики НУШ із 15-річним стажем,
+що добре знає Державний стандарт базової середньої освіти
+та Рекомендації МОН №1093 від 02.08.2024.
 
-Г1 (Досліджує ситуацію та створює математичну модель):
-що учень має виокремити, позначити, скласти.
+ЗАВДАННЯ:
+Склади 1 текстову (компетентнісну) задачу з теми "[ТЕМА]"
+для [КЛАС] класу. Контекст задачі — [КОНТЕКСТ: побут / спорт / гроші
+/ ремонт / подорож / здоров'я]. Задача має бути цікавою для підлітка
+й охоплювати всі 3 групи результатів математичної освітньої галузі.
 
-Г2 (Розв'язує математичну задачу):
-які обчислення, перетворення виконати.
+ВИМОГИ ДО ЗАДАЧІ:
+- Реалістичні числа й сюжет (без «вантажівок, що везуть 1473,5 кг»)
+- 2-3 речення умови, без зайвої «води»
+- Не повинна розв'язуватися «в одну дію»
 
-Г3 (Інтерпретує та критично аналізує результат):
-що перевірити, як обґрунтувати, чи реалістична відповідь.
+ФОРМАТ ВІДПОВІДІ (строго):
+1. УМОВА (готова до показу учням)
+2. ОЧІКУЄМО ЗА Г1 «Досліджує і моделює» — 2-3 конкретні дії учня
+3. ОЧІКУЄМО ЗА Г2 «Розв'язує» — 2-3 конкретні математичні кроки
+4. ОЧІКУЄМО ЗА Г3 «Інтерпретує і критично аналізує» — 2-3 запитання,
+   на які учень має відповісти, перевіряючи результат
+5. ЕТАЛОННЕ РОЗВ'ЯЗАННЯ з поясненнями
+6. МОЖЛИВІ ТИПОВІ ПОМИЛКИ учнів (3 штуки)
 
-Формат відповіді:
-1. Умова задачі
-2. Що оцінюємо за Г1 (2-3 пункти)
-3. Що оцінюємо за Г2 (2-3 пункти)
-4. Що оцінюємо за Г3 (2-3 пункти)
-5. Еталонне розв'язання</pre>
+Після генерації не запитуй, чи продовжувати. Просто видай результат.</pre>
+      </div>
+
+      <div class="sources-banner reveal reveal-5">
+        <strong>Що додано порівняно зі «звичайним» промптом:</strong> рольовий контекст («методист 15 років»),
+        обмеження на сюжет, формат із типовими помилками. Це <strong>відсікає 80% води</strong>, яку Gemini
+        зазвичай генерує за замовчуванням.
       </div>
     </div>
   </div>
@@ -1329,23 +1552,153 @@
       </p>
 
       <div class="prompt-block reveal reveal-4">
-        <div class="prompt-label">Gemini · prompt 02</div>
+        <div class="prompt-label">Gemini · prompt 02 · розгорнутий</div>
         <button class="copy-btn" data-target="p2">копіювати</button>
-<pre id="p2">До задачі вище склади схему оцінювання за 12-бальною шкалою
-НУШ за 3 групами результатів.
+<pre id="p2">До задачі вище склади детальну схему оцінювання
+(аналітичну рубрику) за 12-бальною шкалою НУШ
+за 3 групами результатів.
+
+СТРУКТУРА БАЛІВ:
 Кожна група — 4 бали максимум (разом 12).
 Опиши 4 рівні для кожної групи:
-- початковий (1 бал)
-- середній (2 бали)
-- достатній (3 бали)
-- високий (4 бали)
-Опис рівня = що саме учень зробив або не зробив.
-Подай у вигляді таблиці.</pre>
+- початковий (1 бал) — що саме учень робить недостатньо
+- середній (2 бали) — на якому етапі він зупиняється
+- достатній (3 бали) — що в нього вже виходить
+- високий (4 бали) — що відрізняє роботу від «достатньої»
+
+ВАЖЛИВО:
+- Описуй рівні мовою СПОСТЕРЕЖУВАНИХ дій («розв'язав і записав
+  пояснення», а не «розуміє матеріал»)
+- Використовуй конкретні дієслова з НУШ: виокремлює, позначає,
+  обчислює, перетворює, перевіряє, обґрунтовує
+- Для кожного рівня — 1-2 речення, не більше
+
+ФОРМАТ: таблиця з 4 стовпцями (рівень + 3 групи) і 4 рядками
+(один рядок = один рівень).
+
+У кінці додай 2-3 «червоні прапори» — типові ситуації,
+коли важко обрати між сусідніми рівнями.</pre>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 08: HOMEWORK -->
+  <!-- SLIDE 08: EXAMPLE OUTPUT -->
+  <div class="slide" data-label="приклад виводу">
+    <div class="slide-inner">
+      <div class="label reveal">приклад · як виглядає результат</div>
+      <h2 class="reveal reveal-2">Що Gemini <span class="accent">видасть</span> на цей промпт</h2>
+
+      <p class="prompt-intro reveal reveal-3">
+        Реальний приклад для теми <strong>«Відсотки»</strong>, 6 клас, контекст: гроші.
+        Це фрагмент — повний вивід містить ще еталонне розв'язання та рубрику.
+      </p>
+
+      <div class="example-output reveal reveal-4">
+        <div class="example-header">
+          <span class="example-tag">Gemini · output</span>
+          <span class="example-meta">Тема: Відсотки · 6 клас · ~12 секунд генерації</span>
+        </div>
+
+        <div class="example-section">
+          <div class="example-section-num">01</div>
+          <div class="example-section-content">
+            <div class="example-section-label">УМОВА</div>
+            <p>Уляна побачила в магазині кросівки за 1 800 грн. У суботу почалася акція: знижка 25% на всі товари, а в неділю ціни знизили ще на 10% від уже зниженої суми. Уляна купила кросівки в неділю. Її подруга стверджує: «Ти зекономила 35%». Чи це правда?</p>
+          </div>
+        </div>
+
+        <div class="example-section">
+          <div class="example-section-num g1">Г1</div>
+          <div class="example-section-content">
+            <div class="example-section-label">Очікуємо: досліджує і моделює</div>
+            <ul class="example-list">
+              <li>Позначає початкову ціну за 100%</li>
+              <li>Виокремлює, що знижки <strong>послідовні</strong>, а не сумарні</li>
+              <li>Складає схему: 1800 → (–25%) → ? → (–10%) → ?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="example-section">
+          <div class="example-section-num g2">Г2</div>
+          <div class="example-section-content">
+            <div class="example-section-label">Очікуємо: розв'язує</div>
+            <ul class="example-list">
+              <li>Ціна після першої знижки: 1800 × 0,75 = 1350 грн</li>
+              <li>Ціна після другої: 1350 × 0,9 = 1215 грн</li>
+              <li>Загальна знижка у грн і у % від початкової ціни</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="example-section">
+          <div class="example-section-num g3">Г3</div>
+          <div class="example-section-content">
+            <div class="example-section-label">Очікуємо: інтерпретує і аналізує</div>
+            <ul class="example-list">
+              <li>Чи правильно подруга порахувала? Чому 35% — це помилка?</li>
+              <li>Скільки відсотків насправді (відповідь: 32,5%)</li>
+              <li>Як одним реченням пояснити, чому «25% + 10% ≠ 35%»</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="example-footer">
+          <span class="example-footer-label">типові помилки учнів:</span>
+          1) Додають відсотки (25+10=35) · 2) Беруть другу знижку від 1800, а не від 1350 · 3) Плутають «зекономила» і «віддала»
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 09: ACTIVITY -->
+  <div class="slide" data-label="ваша черга" style="background: var(--bg-soft);">
+    <div class="slide-inner">
+      <div class="label reveal">активність · ваша черга</div>
+      <h2 class="reveal reveal-2"><span class="accent">5 хвилин</span> на власну спробу</h2>
+
+      <div class="activity-grid reveal reveal-3">
+        <div class="activity-instruction">
+          <div class="activity-timer">
+            <div class="activity-timer-val">5:00</div>
+            <div class="activity-timer-lbl">час на вправу</div>
+          </div>
+
+          <div class="activity-steps">
+            <div class="activity-step">
+              <div class="activity-step-num">1</div>
+              <div class="activity-step-text">Відкрийте <strong>gemini.google.com</strong> у новій вкладці</div>
+            </div>
+            <div class="activity-step">
+              <div class="activity-step-num">2</div>
+              <div class="activity-step-text">Скопіюйте промпт <strong>#1</strong> (праворуч) і замініть три плейсхолдери на тему свого <strong>найближчого</strong> уроку</div>
+            </div>
+            <div class="activity-step">
+              <div class="activity-step-num">3</div>
+              <div class="activity-step-text">Запустіть. Поки чекаєте — швидко оцініть: <strong>чи зрозуміла умова дитині</strong>? Чи можна її скоротити?</div>
+            </div>
+            <div class="activity-step">
+              <div class="activity-step-num">4</div>
+              <div class="activity-step-text">У спільному чаті <strong>напишіть одним рядком</strong>: «Що вийшло» або «Що пішло не так»</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-tips">
+          <div class="activity-tips-label">підказки на час вправи</div>
+          <ul class="activity-tips-list">
+            <li><strong>Не той клас?</strong> Просто перепишіть [КЛАС] і запустіть ще раз — Gemini пам'ятає контекст.</li>
+            <li><strong>Задача надто проста?</strong> Допишіть у промпт: «зроби складніше, додай ще одну дію».</li>
+            <li><strong>Дивні числа?</strong> Скажіть: «використай цілі числа», або «замени контекст».</li>
+            <li><strong>Не подобається сюжет?</strong> «Перероби з контекстом [нова тема]» — без переписування промпту.</li>
+            <li><strong>Хочете рубрику одразу?</strong> Просто напишіть: «Тепер промпт #2».</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: HOMEWORK -->
   <div class="slide dark" data-label="домашнє завдання">
     <div class="slide-inner">
       <div class="label reveal">після заняття · домашня робота</div>
@@ -1382,7 +1735,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 09: FAQ -->
+  <!-- SLIDE 11: FAQ -->
   <div class="slide" data-label="запитання">
     <div class="slide-inner">
       <div class="label reveal">під рукою · ймовірні запитання</div>
@@ -1421,7 +1774,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 10: FINAL -->
+  <!-- SLIDE 12: FINAL -->
   <div class="slide" data-label="підсумок" style="background: var(--bg-soft);">
     <div class="slide-inner">
       <div class="final-grid">

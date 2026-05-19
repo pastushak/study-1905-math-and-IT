@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Вайб-кодинг: від ідеї до проєкту · Заняття для вчителів інформатики | МОН України</title>
+<title>Вайб-кодинг: від ідеї до проєкту · Заняття для вчителів інформатики | ЦПРПП Коломия</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -179,6 +179,17 @@
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
     color: var(--ink-soft);
   }
+  .chrome-plan {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 12px;
+    border: 1px solid var(--blue);
+    transition: all 0.2s var(--ease);
+  }
+  .chrome-plan:hover { background: var(--blue); color: #fff; }
   .progress {
     position: fixed; top: 52px; left: 0; right: 0;
     height: 3px; background: var(--line); z-index: 500;
@@ -641,6 +652,303 @@
   .rubric-col.old .rubric-list li::before { content: "✕"; color: var(--red); }
   .rubric-col.new .rubric-list li::before { content: "✓"; color: var(--green); }
 
+  /* MOCKUP */
+  .mockup-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .mockup-window {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    overflow: hidden;
+  }
+  .mockup-toolbar {
+    background: var(--bg-soft);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mockup-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ink-soft);
+    flex-shrink: 0;
+  }
+  .mockup-dot:nth-child(1) { background: var(--red); }
+  .mockup-dot:nth-child(2) { background: var(--yellow); }
+  .mockup-dot:nth-child(3) { background: var(--green); }
+  .mockup-url {
+    flex: 1;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 4px 12px;
+    margin-left: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .mockup-body {
+    padding: 32px 36px;
+  }
+  .mockup-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .mockup-subtitle {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .mockup-field {
+    margin-bottom: 16px;
+  }
+  .mockup-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .mockup-input {
+    border: 1.5px solid var(--ink);
+    padding: 10px 14px;
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+    background: #fff;
+  }
+  .mockup-button {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-bottom: 24px;
+  }
+  .mockup-result {
+    background: var(--bg-soft);
+    border-left: 3px solid var(--blue);
+    padding: 16px 20px;
+  }
+  .mockup-result-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .mockup-result-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .mockup-side {
+    padding: 28px 28px;
+    background: var(--ink);
+    color: #fff;
+    border: 1.5px solid var(--ink);
+  }
+  .mockup-side-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--yellow);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--yellow);
+    font-weight: 700;
+  }
+  .mockup-side-list {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+  .mockup-side-list li {
+    padding: 9px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    border-bottom: 1px dashed rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85);
+  }
+  .mockup-side-list li:last-child { border-bottom: none; }
+  .mockup-side-list li strong { color: var(--yellow); font-weight: 600; }
+  .mockup-side-note {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid var(--yellow);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.85);
+  }
+  .mockup-side-note strong { color: var(--yellow); font-weight: 700; }
+
+  /* ACTIVITY BLOCK */
+  .activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .activity-instruction {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    padding: 32px 28px;
+  }
+  .activity-timer {
+    background: var(--ink);
+    color: #fff;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .activity-timer-val {
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--yellow);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .activity-timer-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.65);
+  }
+  .activity-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .activity-step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .activity-step-num {
+    width: 32px;
+    height: 32px;
+    background: var(--blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .activity-step-text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-top: 6px;
+  }
+  .activity-tips {
+    background: var(--yellow);
+    border: 1.5px solid var(--ink);
+    padding: 28px 28px;
+  }
+  .activity-tips-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    margin-bottom: 16px;
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .activity-tips-list {
+    list-style: none;
+  }
+  .activity-tips-list li {
+    padding: 10px 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+    border-bottom: 1px dashed rgba(15,15,15,0.25);
+  }
+  .activity-tips-list li:last-child { border-bottom: none; }
+
+  /* PROMPT BLOCK */
+  .prompt-intro {
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    max-width: 820px;
+    line-height: 1.55;
+  }
+  .prompt-intro strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .prompt-block {
+    background: var(--ink);
+    color: #fff;
+    padding: 36px 36px 32px;
+    position: relative;
+    overflow: auto;
+    max-height: 58vh;
+    border: 1.5px solid var(--ink);
+  }
+  .prompt-label {
+    position: absolute;
+    top: 0; left: 0;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .prompt-block pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 24px;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 7px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .copy-btn:hover { background: var(--blue); border-color: var(--blue); }
+  .copy-btn.copied { background: var(--green); border-color: var(--green); }
+
   /* HOMEWORK */
   .homework { display: grid; gap: 14px; }
   .hw-item {
@@ -745,8 +1053,8 @@
   </div>
   <div class="start-header">
     <a href="index.html" class="logo-mini">
-      <div class="logo-mini-mark">МОН</div>
-      <div class="logo-mini-text">Міністерство освіти і науки</div>
+      <div class="logo-mini-mark">ЦПР</div>
+      <div class="logo-mini-text">ЦПРПП · Коломия</div>
     </a>
     <a href="index.html" class="start-back">До всіх занять</a>
   </div>
@@ -788,7 +1096,7 @@
       <span class="chrome-title-tag">Інформатика</span>
       Вайб-кодинг: від ідеї до проєкту
     </div>
-    <div class="chrome-right">МОН України · НУШ</div>
+    <a href="informatyka-plan.html" class="chrome-plan" target="_blank" rel="noopener">План лектора ↗</a>
   </div>
 </div>
 
@@ -957,7 +1265,117 @@
     </div>
   </div>
 
-  <!-- SLIDE 06: ANTHROPIC CHART -->
+  <!-- SLIDE 06: WORKING PROMPT FOR BOLT.NEW -->
+  <div class="slide" data-label="робочий промпт">
+    <div class="slide-inner">
+      <div class="label reveal">практика · як саме просити</div>
+      <h2 class="reveal reveal-2">Робочий <span class="accent">промпт-шаблон</span> для Bolt.new</h2>
+
+      <p class="prompt-intro reveal reveal-3">
+        Дитячий «зроби сайт про котиків» не дає робочого результату. Ось <strong>працюючий каркас</strong>,
+        який вже працює — учні дописують у нього своє.
+      </p>
+
+      <div class="prompt-block reveal reveal-4">
+        <div class="prompt-label">Bolt.new · робочий промпт</div>
+        <button class="copy-btn" data-target="p1">копіювати</button>
+<pre id="p1">Зроби односторінковий веб-застосунок: [ЩО САМЕ РОБИТЬ ЗАСТОСУНОК].
+
+КОРИСТУВАЧ: [ХТО ним користується — учитель, учень, клас]
+ВВОДИТЬ: [ЯКІ ДАНІ він вводить — поле, число, вибір зі списку]
+ОТРИМУЄ: [ЩО з'являється на екрані — текст, таблиця, картка]
+
+ТЕХНІЧНІ ВИМОГИ:
+- Один HTML-файл (не розбивай на купу файлів)
+- Чистий CSS без бібліотек, мінімалістичний дизайн
+- Кнопка скидання, щоб ввести нові дані
+- Працює офлайн (без серверу)
+
+ПРИКЛАД КОРИСТУВАЧА В ДІЇ:
+1. Учитель відкриває сайт
+2. Вводить [ПРИКЛАД]
+3. Натискає [ПРИКЛАД]
+4. Бачить [ПРИКЛАД]
+
+Українська мова інтерфейсу. Без емодзі. Без зайвих анімацій.</pre>
+      </div>
+
+      <div class="sources-banner reveal reveal-5">
+        <strong>Чому це працює:</strong> Bolt.new дуже добре розуміє <strong>сценарій користувача</strong>
+        («що → вводить → отримує»). Це той самий метод, яким користуються справжні розробники, коли пишуть
+        ТЗ для команди. Учні вчаться формулювати — не «зроби, як я хочу», а «зроби так, щоб працювало <em>ось так</em>».
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 07: EXAMPLE OUTPUT (BOLT.NEW MOCKUP) -->
+  <div class="slide" data-label="що видасть bolt" style="background: var(--bg-soft);">
+    <div class="slide-inner">
+      <div class="label reveal">приклад · що генерує bolt.new</div>
+      <h2 class="reveal reveal-2">Реальний приклад: <span class="accent">генератор варіантів</span></h2>
+
+      <p class="prompt-intro reveal reveal-3">
+        Промпт із попереднього слайду, заповнений під задачу «генератор варіантів контрольної з математики».
+        Результат — за <strong>~45 секунд</strong>, ось як виглядає згенерований інтерфейс:
+      </p>
+
+      <div class="mockup-grid reveal reveal-4">
+        <div class="mockup-window">
+          <div class="mockup-toolbar">
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
+            <div class="mockup-url">bolt.new · variant-generator.html</div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-title">Генератор варіантів контрольної</div>
+            <div class="mockup-subtitle">Введіть тему і кількість варіантів</div>
+
+            <div class="mockup-field">
+              <label class="mockup-label">Тема</label>
+              <div class="mockup-input">Квадратні рівняння</div>
+            </div>
+
+            <div class="mockup-field">
+              <label class="mockup-label">Клас</label>
+              <div class="mockup-input">8</div>
+            </div>
+
+            <div class="mockup-field">
+              <label class="mockup-label">Кількість варіантів (1–4)</label>
+              <div class="mockup-input">3</div>
+            </div>
+
+            <div class="mockup-button">Згенерувати →</div>
+
+            <div class="mockup-result">
+              <div class="mockup-result-label">Варіант 1</div>
+              <div class="mockup-result-text">1. Розв'яжіть рівняння: x² − 7x + 12 = 0<br>2. Знайдіть корені за теоремою Вієта…</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mockup-side">
+          <div class="mockup-side-label">що зробив bolt.new</div>
+          <ul class="mockup-side-list">
+            <li><strong>HTML</strong> — структура форми й результатів</li>
+            <li><strong>CSS</strong> — мінімалістичний дизайн, чорно-білий</li>
+            <li><strong>JavaScript</strong> — логіка генерації варіантів</li>
+            <li><strong>Кнопка скидання</strong> — як вимагали в промпті</li>
+            <li><strong>Українська мова</strong> інтерфейсу</li>
+            <li><strong>Без сервера</strong> — все працює в браузері</li>
+          </ul>
+
+          <div class="mockup-side-note">
+            <strong>0 рядків коду</strong>, написаних вчителем.<br>
+            <strong>~45 секунд</strong> від промпту до робочого сайту.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 08: ANTHROPIC CHART -->
   <div class="slide" data-label="дані anthropic" style="background: var(--bg-soft);">
     <div class="slide-inner">
       <div class="label reveal">дані · як ШІ використовують розробники</div>
@@ -1015,7 +1433,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 07: RISKS -->
+  <!-- SLIDE 09: RISKS -->
   <div class="slide" data-label="ризики">
     <div class="slide-inner">
       <div class="label reveal">чесний погляд · реальні ризики</div>
@@ -1046,7 +1464,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 08: WILLISON QUOTE -->
+  <!-- SLIDE 10: WILLISON QUOTE -->
   <div class="slide dark" data-label="межі поняття">
     <div class="slide-inner">
       <div class="label reveal">межі поняття · важливе уточнення</div>
@@ -1072,7 +1490,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 09: ROLES CHANGE -->
+  <!-- SLIDE 11: ROLES CHANGE -->
   <div class="slide" data-label="ролі змінюються" style="background: var(--bg-soft);">
     <div class="slide-inner">
       <div class="label reveal">школа · ролі змінюються</div>
@@ -1126,7 +1544,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 10: RUBRIC -->
+  <!-- SLIDE 12: RUBRIC -->
   <div class="slide" data-label="нова рубрика">
     <div class="slide-inner">
       <div class="label reveal">оцінювання · нові критерії</div>
@@ -1161,7 +1579,55 @@
     </div>
   </div>
 
-  <!-- SLIDE 11: FINAL + HOMEWORK -->
+  <!-- SLIDE 13: ACTIVITY -->
+  <div class="slide" data-label="ваша черга" style="background: var(--bg-soft);">
+    <div class="slide-inner">
+      <div class="label reveal">активність · ваша черга</div>
+      <h2 class="reveal reveal-2"><span class="accent">5 хвилин</span> на власну спробу</h2>
+
+      <div class="activity-grid reveal reveal-3">
+        <div class="activity-instruction">
+          <div class="activity-timer">
+            <div class="activity-timer-val">5:00</div>
+            <div class="activity-timer-lbl">час на вправу</div>
+          </div>
+
+          <div class="activity-steps">
+            <div class="activity-step">
+              <div class="activity-step-num">1</div>
+              <div class="activity-step-text">Відкрийте <strong>bolt.new</strong> у новій вкладці (без реєстрації)</div>
+            </div>
+            <div class="activity-step">
+              <div class="activity-step-num">2</div>
+              <div class="activity-step-text">Подумайте <strong>10 секунд</strong>: <em>який інструмент</em> ви б хотіли мати на своєму уроці?</div>
+            </div>
+            <div class="activity-step">
+              <div class="activity-step-num">3</div>
+              <div class="activity-step-text">Скопіюйте промпт-шаблон зі слайду 6 і заповніть свої <strong>[плейсхолдери]</strong></div>
+            </div>
+            <div class="activity-step">
+              <div class="activity-step-num">4</div>
+              <div class="activity-step-text">Запустіть. Як буде готово — <strong>скиньте посилання</strong> у спільний чат</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-tips">
+          <div class="activity-tips-label">ідеї, якщо не знаєте з чого почати</div>
+          <ul class="activity-tips-list">
+            <li><strong>Калькулятор оцінок</strong> — учитель вводить бали за роботи, отримує підсумок</li>
+            <li><strong>Генератор словникового диктанту</strong> — задаєте тему, отримуєте 10 слів</li>
+            <li><strong>Розклад дзвінків</strong> — вводите час першого, отримуєте всі</li>
+            <li><strong>Таймер уроку</strong> — 5 хв на повторення, 30 на нове, 5 на підсумок</li>
+            <li><strong>Жеребкування</strong> — вводите список учнів, отримуєте випадковий вибір</li>
+            <li><strong>Перевірка прикладів</strong> — учень вводить відповідь, бачить правильно чи ні</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: FINAL + HOMEWORK -->
   <div class="slide dark" data-label="підсумок + домашка">
     <div class="slide-inner">
       <div class="label reveal">три тезиси · домашня робота</div>
@@ -1350,6 +1816,22 @@
       else if (diff < 0 && atTop) prev();
     }
   }, { passive: true });
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const text = document.getElementById(btn.getAttribute('data-target')).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'скопійовано ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
 
   const startOverlay = document.getElementById('startOverlay');
   const startBtn = document.getElementById('startBtn');
