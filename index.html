@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Навчання для вчителів · Математика та Інформатика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f1e8;
+    --bg-alt: #ebe5d4;
+    --ink: #1a1814;
+    --ink-soft: #4a4640;
+    --accent: #c2410c;
+    --accent-soft: #fb923c;
+    --line: #1a1814;
+    --paper: #fdfbf5;
+    --math: #166534;
+    --info: #1e40af;
+    --ease: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 64px;
+  }
+
+  header {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .header-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .header-grid .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: -0.01em;
+  }
+
+  .hero {
+    padding: 100px 0 80px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .label::before {
+    content: "";
+    width: 40px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.93;
+    letter-spacing: -0.035em;
+    margin-bottom: 32px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .lead {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.45;
+    max-width: 780px;
+    font-weight: 300;
+  }
+
+  .courses {
+    padding: 80px 0;
+  }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+
+  .course-card {
+    position: relative;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    padding: 48px 40px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    min-height: 460px;
+    overflow: hidden;
+    transition: transform 0.4s var(--ease);
+  }
+  .course-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--accent);
+  }
+  .course-card.math::before { background: var(--math); }
+  .course-card.info::before { background: var(--info); }
+
+  .course-card:hover {
+    transform: translateY(-6px);
+  }
+  .course-card:hover .course-arrow {
+    transform: translateX(8px);
+  }
+
+  .course-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .course-tag .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .course-card.math .course-tag .dot { background: var(--math); }
+  .course-card.info .course-tag .dot { background: var(--info); }
+
+  .course-num {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  .course-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .course-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .course-desc {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    flex-grow: 1;
+  }
+
+  .course-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px dashed var(--ink-soft);
+  }
+  .course-meta span::before {
+    content: "◇ ";
+    color: var(--accent);
+  }
+
+  .course-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .course-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    color: var(--accent);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .badge {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .badge.live {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+  }
+
+  footer {
+    padding: 48px 0 32px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  footer .accent { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 24px; }
+    .courses-grid { grid-template-columns: 1fr; gap: 20px; }
+    .course-card { padding: 36px 28px; min-height: auto; }
+    .hero { padding: 60px 0 50px; }
+    .courses { padding: 60px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="container">
+    <div class="header-grid">
+      <div>База занять</div>
+      <div class="brand">Навчання для вчителів</div>
+      <div>2025/26</div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="label">онлайн-навчання · 30 хвилин кожне</div>
+    <h1>Два <em>заняття</em><br>для вчителів</h1>
+    <p class="lead">
+      Короткі, щільні онлайн-зустрічі про те, як поєднати вимоги
+      Нової української школи з реальною роботою на уроці —
+      і як ШІ може на це працювати.
+    </p>
+  </div>
+</section>
+
+<section class="courses">
+  <div class="container">
+    <div class="label">обрати заняття</div>
+
+    <div class="courses-grid">
+
+      <a href="matematyka.html" class="course-card math">
+        <div class="badge live">актуально</div>
+        <div class="course-tag"><span class="dot"></span>математика · нуш</div>
+        <div class="course-num">Заняття 01</div>
+        <h2 class="course-title">3 групи результатів — і чому це <em>круто</em></h2>
+        <p class="course-desc">
+          Як перестати боятися «груп результатів» і почати оцінювати
+          справедливо. Природний цикл роботи з математичною задачею +
+          два промпти для Gemini, які генерують задачу й рубрику за 10 хвилин.
+        </p>
+        <div class="course-meta">
+          <span>30 хвилин</span>
+          <span>10 екранів</span>
+          <span>домашка</span>
+        </div>
+        <div class="course-cta">
+          <span>Перейти до заняття</span>
+          <span class="course-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="informatyka.html" class="course-card info">
+        <div class="badge">незабаром</div>
+        <div class="course-tag"><span class="dot"></span>інформатика · нуш</div>
+        <div class="course-num">Заняття 02</div>
+        <h2 class="course-title">Інформатика — <em>в процесі</em></h2>
+        <p class="course-desc">
+          Цей курс перебуває в розробці. Зміст і структура з'являться
+          пізніше — слідкуйте за оновленнями.
+        </p>
+        <div class="course-meta">
+          <span>30 хвилин</span>
+          <span>у розробці</span>
+        </div>
+        <div class="course-cta">
+          <span>Відкрити сторінку</span>
+          <span class="course-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    база занять · <span class="accent">для вчителів</span> · нуш
+  </div>
+</footer>
+
+</body>
+</html>

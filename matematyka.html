@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 групи результатів + Gemini · Заняття для вчителів математики</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f1e8;
+    --bg-alt: #ebe5d4;
+    --ink: #1a1814;
+    --ink-soft: #4a4640;
+    --accent: #c2410c;
+    --accent-soft: #fb923c;
+    --line: #1a1814;
+    --paper: #fdfbf5;
+    --g1: #166534;
+    --g2: #1e40af;
+    --g3: #9f1239;
+    --ease: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* B&W mode — all colors collapse to grayscale via filter on root.
+     This is animated for a smooth visual transition. */
+  html.bw-mode {
+    filter: grayscale(1) contrast(1.05);
+    transition: filter 2s var(--ease);
+  }
+  html {
+    transition: filter 2s var(--ease);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============= START OVERLAY ============= */
+  .start-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    transition: opacity 0.8s var(--ease), visibility 0.8s var(--ease);
+  }
+  .start-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .start-back {
+    position: absolute;
+    top: 28px;
+    left: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .start-back:hover { color: var(--accent); }
+  .start-back::before { content: "← "; color: var(--accent); }
+
+  .start-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .start-meta span::before { content: "◇ "; color: var(--accent); }
+
+  .start-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 120px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    margin-bottom: 32px;
+    text-align: center;
+    max-width: 1100px;
+  }
+  .start-title .num {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .start-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .start-lead {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.5;
+    max-width: 680px;
+    text-align: center;
+    font-weight: 300;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+  }
+
+  .start-timer-preview {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(80px, 13vw, 180px);
+    font-weight: 900;
+    font-style: italic;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 16px;
+    letter-spacing: -0.05em;
+  }
+
+  .start-timer-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+  }
+
+  .start-btn {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 700;
+    font-style: italic;
+    padding: 22px 56px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+    letter-spacing: -0.01em;
+  }
+  .start-btn::after {
+    content: " →";
+    transition: transform 0.3s var(--ease);
+    display: inline-block;
+  }
+  .start-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+  .start-btn:hover::after {
+    transform: translateX(6px);
+  }
+
+  .start-note {
+    margin-top: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.6;
+  }
+
+  /* ============= FLOATING TIMER (after start) ============= */
+  .timer-float {
+    position: fixed;
+    top: 18px;
+    right: 84px;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s var(--ease) 0.3s, transform 0.6s var(--ease) 0.3s, background 0.4s, color 0.4s, border-color 0.4s;
+    transform: translateY(-10px);
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-float.visible {
+    opacity: 0.75;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .timer-float:hover {
+    opacity: 1 !important;
+  }
+  .timer-float.warning {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--paper);
+  }
+  .timer-float.warning .timer-dot {
+    background: var(--paper);
+    animation: pulse 1s ease-in-out infinite;
+  }
+  .timer-float.expired {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .timer-float.expired .timer-dot {
+    background: var(--paper);
+    animation: none;
+  }
+
+  .timer-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .timer-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .timer-label-small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .timer-float.warning .timer-label-small,
+  .timer-float.expired .timer-label-small {
+    color: rgba(253,251,245,0.7);
+  }
+
+  /* ============= TOP PROGRESS (slide progress) ============= */
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(26,24,20,0.08);
+    z-index: 500;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.7s var(--ease);
+    box-shadow: 0 0 8px rgba(194,65,12,0.4);
+  }
+
+  /* ============= CHROME ============= */
+  .chrome-top {
+    position: fixed;
+    top: 14px;
+    left: 0;
+    right: 0;
+    padding: 8px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    z-index: 200;
+    pointer-events: none;
+  }
+  .chrome-top-title {
+    font-family: 'Fraunces', serif;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .chrome-back {
+    pointer-events: auto;
+    text-decoration: none;
+    color: var(--ink-soft);
+    transition: color 0.2s;
+  }
+  .chrome-back:hover { color: var(--accent); }
+  .chrome-back::before { content: "← "; color: var(--accent); }
+
+  /* ============= DECK ============= */
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 80px 64px 80px;
+    opacity: 0;
+    transform: translateY(40px);
+    pointer-events: none;
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 2;
+  }
+  .slide.prev {
+    transform: translateY(-40px);
+  }
+
+  .slide-inner {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .slide .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+  .slide.active .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.25s;
+  }
+  .slide.active .reveal-2 { transition-delay: 0.4s; }
+  .slide.active .reveal-3 { transition-delay: 0.55s; }
+  .slide.active .reveal-4 { transition-delay: 0.7s; }
+  .slide.active .reveal-5 { transition-delay: 0.85s; }
+  .slide.active .reveal-6 { transition-delay: 1.0s; }
+  .slide.active .reveal-7 { transition-delay: 1.15s; }
+
+  /* Navigation dots */
+  .nav {
+    position: fixed;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 250;
+  }
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s var(--ease);
+    position: relative;
+  }
+  .nav-dot:hover { background: var(--accent-soft); }
+  .nav-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.4);
+  }
+  .nav-dot::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    background: var(--paper);
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+  }
+  .nav-dot:hover::after { opacity: 1; }
+
+  /* Arrows */
+  .arrows {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 250;
+  }
+  .arrow-btn {
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    color: var(--ink);
+    transition: all 0.2s var(--ease);
+  }
+  .arrow-btn:hover:not(:disabled) {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+  }
+  .arrow-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .counter {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    z-index: 200;
+    pointer-events: none;
+  }
+  .counter .current {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hint {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0.6;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .hint kbd {
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--ink-soft);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9px;
+  }
+
+  /* ============= SLIDE CONTENT ============= */
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .label::before {
+    content: "";
+    width: 40px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 36px;
+  }
+  h1 .num { font-style: italic; color: var(--accent); font-weight: 500; }
+  h1 em { font-style: italic; color: var(--accent); font-weight: 500; }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 48px;
+    max-width: 1100px;
+  }
+  h2 em { font-style: italic; color: var(--accent); font-weight: 500; }
+
+  .lead {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.45;
+    max-width: 800px;
+    font-weight: 300;
+  }
+  .lead em { font-style: italic; color: var(--accent); }
+
+  .hero-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 40px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span::before { content: "◇ "; color: var(--accent); }
+
+  .hero-tagline {
+    margin-top: 32px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.45em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: -0.01em;
+  }
+
+  .slide.dark { background: var(--ink); color: var(--paper); }
+  .slide.dark .label { color: rgba(253,251,245,0.5); }
+  .slide.dark .label::before { background: var(--accent-soft); }
+
+  .quote-mark {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(200px, 30vw, 400px);
+    line-height: 0.5;
+    color: var(--accent);
+    opacity: 0.18;
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    pointer-events: none;
+  }
+  .key-text {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4.5vw, 60px);
+    line-height: 1.15;
+    font-weight: 500;
+    font-style: italic;
+    max-width: 1000px;
+    position: relative;
+  }
+  .key-text strong {
+    font-weight: 700;
+    font-style: normal;
+    color: var(--accent-soft);
+  }
+  .key-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 40px;
+    opacity: 0.5;
+  }
+
+  .timeline {
+    display: grid;
+    gap: 0;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 140px 90px 1fr;
+    align-items: start;
+    padding: 28px 36px;
+    border-bottom: 1px solid var(--line);
+    gap: 28px;
+    transition: background 0.2s;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-item:hover { background: var(--bg-alt); }
+  .timeline-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    padding-top: 8px;
+  }
+  .timeline-num {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 900;
+    font-style: italic;
+    line-height: 1;
+  }
+  .timeline-content h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .timeline-content p {
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+    margin-bottom: 32px;
+  }
+  .group {
+    padding: 36px 28px;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+  }
+  .group:last-child { border-right: none; }
+  .group-num {
+    font-family: 'Fraunces', serif;
+    font-size: 96px;
+    font-weight: 900;
+    font-style: italic;
+    line-height: 0.9;
+    margin-bottom: 18px;
+  }
+  .group:nth-child(1) .group-num { color: var(--g1); }
+  .group:nth-child(2) .group-num { color: var(--g2); }
+  .group:nth-child(3) .group-num { color: var(--g3); }
+  .group-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .group-translation {
+    font-size: 15px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px dashed var(--ink-soft);
+  }
+  .group-verbs {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .group-verbs-list {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .cycle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 28px;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.8vw, 32px);
+    font-weight: 500;
+    background: var(--bg-alt);
+    border: 1.5px solid var(--line);
+  }
+  .cycle-step {
+    padding: 10px 22px;
+    border: 2px solid var(--line);
+    background: var(--paper);
+  }
+  .cycle-arrow { font-size: 0.7em; color: var(--accent); }
+
+  .args {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 24px;
+  }
+  .arg {
+    padding: 36px 32px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    position: relative;
+  }
+  .arg-num {
+    position: absolute;
+    top: -22px;
+    left: 28px;
+    background: var(--accent);
+    color: var(--paper);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 22px;
+  }
+  .arg h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 14px 0 16px;
+    letter-spacing: -0.01em;
+  }
+  .arg p {
+    font-size: 15.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .prompt-intro {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    max-width: 800px;
+  }
+  .prompt-block {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 40px;
+    position: relative;
+    overflow: auto;
+    max-height: 60vh;
+    border: 1.5px solid var(--ink);
+  }
+  .prompt-label {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .prompt-block pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14.5px;
+    line-height: 1.75;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 24px;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: transparent;
+    border: 1px solid var(--paper);
+    color: var(--paper);
+    padding: 8px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .copy-btn.copied {
+    background: var(--g1);
+    border-color: var(--g1);
+  }
+
+  .homework { display: grid; gap: 18px; }
+  .hw-item {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 28px;
+    padding: 32px 36px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    align-items: center;
+  }
+  .hw-num {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    font-weight: 900;
+    font-style: italic;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .hw-content h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .hw-content p {
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .hw-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .hw-tag.required { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .hw-tag.optional { background: var(--bg); }
+
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 24px 0;
+    cursor: pointer;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: italic;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .faq-q::before {
+    content: "—";
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .faq-toggle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    color: var(--accent);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s, margin-top 0.3s, padding-top 0.3s;
+    color: var(--ink-soft);
+    font-size: 16px;
+    padding-left: 28px;
+  }
+  .faq-item.open .faq-a {
+    max-height: 240px;
+    margin-top: 16px;
+  }
+
+  .final-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .final-big {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(60px, 10vw, 140px);
+    line-height: 0.9;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+  .final-big em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .final-list {
+    list-style: none;
+    counter-reset: final;
+  }
+  .final-list li {
+    counter-increment: final;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    display: flex;
+    gap: 24px;
+    align-items: baseline;
+  }
+  .final-list li::before {
+    content: counter(final, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    min-width: 30px;
+  }
+
+  @media (max-width: 968px) {
+    .slide { padding: 90px 32px 100px; }
+    .groups { grid-template-columns: 1fr; }
+    .group { border-right: none; border-bottom: 1px solid var(--line); }
+    .group:last-child { border-bottom: none; }
+    .group-num { font-size: 64px; }
+    .args { grid-template-columns: 1fr; gap: 36px; }
+    .timeline-item { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+    .hw-item { grid-template-columns: 1fr; gap: 14px; padding: 24px; }
+    .final-grid { grid-template-columns: 1fr; gap: 32px; }
+    .cycle { gap: 12px; padding: 20px; }
+    .quote-mark { font-size: 200px; }
+    .nav { display: none; }
+    .timer-float { right: 70px; padding: 6px 12px; }
+    .timer-float .timer-label-small { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .slide { padding: 80px 20px 90px; }
+    .arrows { right: 16px; bottom: 16px; }
+    .counter { left: 16px; bottom: 16px; }
+    .hint { display: none; }
+    .chrome-top { padding: 8px 20px; font-size: 10px; }
+    .arrow-btn { width: 40px; height: 40px; }
+    .timer-float { right: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ============= START OVERLAY ============= -->
+<div class="start-overlay" id="startOverlay">
+  <a href="index.html" class="start-back">До всіх занять</a>
+
+  <div class="start-meta">
+    <span>математика · нуш</span>
+    <span>30 хвилин</span>
+    <span>gemini</span>
+  </div>
+
+  <h1 class="start-title">
+    <span class="num">3</span> групи результатів —<br>
+    і чому це <em>круто</em>
+  </h1>
+
+  <p class="start-lead">
+    Природний цикл роботи з математичною задачею +
+    два промпти для Gemini, які генерують задачу й рубрику оцінювання
+    за 10 хвилин замість години.
+  </p>
+
+  <div class="start-timer-preview">30:00</div>
+  <div class="start-timer-label">— тривалість заняття —</div>
+
+  <button class="start-btn" id="startBtn">Давайте вчитися</button>
+
+  <div class="start-note">після натискання таймер запуститься й залишиться у кутку</div>
+</div>
+
+<!-- ============= TOP CHROME ============= -->
+<a href="index.html" class="chrome-top">
+  <span class="chrome-back">До всіх занять</span>
+  <span class="chrome-top-title">3 групи результатів · математика нуш</span>
+  <span>gemini · 2 промпти</span>
+</a>
+
+<!-- ============= PROGRESS BAR ============= -->
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- ============= FLOATING TIMER ============= -->
+<div class="timer-float" id="timerFloat">
+  <div class="timer-dot"></div>
+  <div class="timer-value" id="timerValue">30:00</div>
+  <div class="timer-label-small" id="timerLabel">залишилось</div>
+</div>
+
+<!-- ============= DECK ============= -->
+<div class="deck" id="deck">
+
+  <!-- SLIDE 01: HERO -->
+  <div class="slide active" data-label="вступ">
+    <div class="slide-inner">
+      <div class="hero-meta reveal">
+        <span>для вчителів математики</span>
+        <span>один інструмент: gemini</span>
+        <span>рекомендації мон №1093</span>
+      </div>
+      <h1 class="reveal reveal-2">
+        <span class="num">3</span> групи результатів —<br>
+        і чому це <em>круто</em>
+      </h1>
+      <p class="lead reveal reveal-3">
+        Групи результатів — це не нова бюрократія. Це <em>природний цикл</em>
+        роботи з математичною задачею, який ви й так використовуєте.
+        Сьогодні робимо його видимим — і вчимося генерувати завдання й рубрики
+        через Gemini за 10 хвилин замість години.
+      </p>
+      <div class="hero-tagline reveal reveal-4">
+        — тридцять хвилин, які звільнять вам години —
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 02: KEY MESSAGE -->
+  <div class="slide dark" data-label="ключова думка">
+    <div class="quote-mark reveal">„</div>
+    <div class="slide-inner">
+      <div class="label reveal">головна думка</div>
+      <div class="key-text reveal reveal-2">
+        «3 групи результатів — це <strong>Зрозумів → Розв'язав → Перевірив</strong>.
+        Я й так це роблю на уроках. Тепер просто роблю це видимим — для учня,
+        для батьків, для себе».
+      </div>
+      <div class="key-attr reveal reveal-3">— те, що має залишитися в голові вчителя —</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 03: TIMELINE -->
+  <div class="slide" data-label="таймінг">
+    <div class="slide-inner">
+      <div class="label reveal">структура · хронометраж</div>
+      <h2 class="reveal reveal-2">30 хвилин, <em>п'ять блоків</em>, нуль води</h2>
+
+      <div class="timeline reveal reveal-3">
+        <div class="timeline-item">
+          <div class="timeline-time">3 хв</div>
+          <div class="timeline-num">01</div>
+          <div class="timeline-content">
+            <h3>Гачок і легалізація</h3>
+            <p>Запитання в чат: «Скільки груп результатів у математичній галузі?» Швидко покаже, хто плутає з 4 цілями стандарту. Теза: ви це вже робите.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">5 хв</div>
+          <div class="timeline-num">02</div>
+          <div class="timeline-content">
+            <h3>Три групи за п'ять хвилин</h3>
+            <p>Один слайд, три рядки, без води. Що це насправді + дієслова-маркери для кожної групи.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">8 хв</div>
+          <div class="timeline-num">03</div>
+          <div class="timeline-content">
+            <h3>Демо: Gemini генерує завдання</h3>
+            <p>Серце заняття. Один промпт-шаблон, який вчитель запам'ятає й забере з собою. Запуск наживо.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">8 хв</div>
+          <div class="timeline-num">04</div>
+          <div class="timeline-content">
+            <h3>Демо: схема оцінювання (рубрика)</h3>
+            <p>Другий промпт — для рубрики за 3 групами × 4 рівні. Показуємо, як редагувати ШІ під свій клас.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">6 хв</div>
+          <div class="timeline-num">05</div>
+          <div class="timeline-content">
+            <h3>Підсумок + домашнє завдання</h3>
+            <p>Одна фраза-резюме. Чітка домашка: одне обов'язкове + одне на самоопрацювання + одне за бажанням.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 04: THREE GROUPS -->
+  <div class="slide" data-label="3 групи" style="background: var(--bg-alt);">
+    <div class="slide-inner">
+      <div class="label reveal">ядро · три групи результатів</div>
+      <h2 class="reveal reveal-2">Мовою <em>живого вчителя</em></h2>
+
+      <div class="groups reveal reveal-3">
+        <div class="group">
+          <div class="group-num">01</div>
+          <div class="group-title">Досліджує ситуацію та створює математичні моделі</div>
+          <div class="group-translation">«Зрозумів задачу. Переклав мовою математики».</div>
+          <div class="group-verbs">дієслова-маркери</div>
+          <div class="group-verbs-list">виокремлює · позначає · складає рівняння або вираз</div>
+        </div>
+        <div class="group">
+          <div class="group-num">02</div>
+          <div class="group-title">Розв'язує математичні задачі</div>
+          <div class="group-translation">«Виконав обчислення, перетворення, побудову».</div>
+          <div class="group-verbs">дієслова-маркери</div>
+          <div class="group-verbs-list">обчислює · перетворює · доводить · будує</div>
+        </div>
+        <div class="group">
+          <div class="group-num">03</div>
+          <div class="group-title">Інтерпретує та критично аналізує результати</div>
+          <div class="group-translation">«Перевірив і пояснив, що отримав».</div>
+          <div class="group-verbs">дієслова-маркери</div>
+          <div class="group-verbs-list">перевіряє · обґрунтовує · оцінює · тлумачить</div>
+        </div>
+      </div>
+
+      <div class="cycle reveal reveal-4">
+        <div class="cycle-step">Зрозумів</div>
+        <div class="cycle-arrow">→</div>
+        <div class="cycle-step">Розв'язав</div>
+        <div class="cycle-arrow">→</div>
+        <div class="cycle-step">Перевірив</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 05: ARGUMENTS -->
+  <div class="slide" data-label="чому це ок">
+    <div class="slide-inner">
+      <div class="label reveal">переконання · чому це працює</div>
+      <h2 class="reveal reveal-2">Три причини, чому <em>3 групи</em> — це справді ОК</h2>
+
+      <div class="args">
+        <div class="arg reveal reveal-3">
+          <div class="arg-num">1</div>
+          <h3>Справедливість оцінки</h3>
+          <p>Учень, який «не побачив» задачу, але добре рахує, більше не отримує загальне «2». Він отримує бали за Г2 і чесний нуль за Г1. Учень бачить, <strong>за що</strong> оцінка — а не «бо так вчителька сказала».</p>
+        </div>
+        <div class="arg reveal reveal-4">
+          <div class="arg-num">2</div>
+          <h3>Діагностика, не вирок</h3>
+          <p>Одразу видно, де «провал» класу: на моделюванні, на техніці чи на інтерпретації. Це підказує, що підтягувати на наступному уроці. Оцінка стає інструментом, а не штампом.</p>
+        </div>
+        <div class="arg reveal reveal-5">
+          <div class="arg-num">3</div>
+          <h3>Менше суперечок</h3>
+          <p>Рубрика за 3 групами = менше дискусій з батьками типу «а чому 8, а не 9?». У вас є таблиця з чіткими описами рівнів. Розмова з оцінювальної переходить у методичну.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 06: PROMPT 1 -->
+  <div class="slide" data-label="промпт #1" style="background: var(--bg-alt);">
+    <div class="slide-inner">
+      <div class="label reveal">інструмент · промпт #1</div>
+      <h2 class="reveal reveal-2">Промпт для генерації <em>задачі</em> за 3 групами</h2>
+      <p class="prompt-intro reveal reveal-3">
+        Скопіюйте, замініть <strong>[ТЕМА]</strong> і <strong>[КЛАС]</strong> на свої — і вставте в Gemini. Поки модель пише — коментуйте вголос, що очікуєте побачити.
+      </p>
+
+      <div class="prompt-block reveal reveal-4">
+        <div class="prompt-label">Gemini · prompt 01</div>
+        <button class="copy-btn" data-target="p1">копіювати</button>
+<pre id="p1">Ти — методист з математики НУШ. Склади 1 текстову задачу
+з теми "[ТЕМА]" для [КЛАС] класу так, щоб її розв'язання
+охоплювало 3 групи результатів математичної освітньої галузі:
+
+Г1 (Досліджує ситуацію та створює математичну модель):
+що учень має виокремити, позначити, скласти.
+
+Г2 (Розв'язує математичну задачу):
+які обчислення, перетворення виконати.
+
+Г3 (Інтерпретує та критично аналізує результат):
+що перевірити, як обґрунтувати, чи реалістична відповідь.
+
+Формат відповіді:
+1. Умова задачі
+2. Що оцінюємо за Г1 (2-3 пункти)
+3. Що оцінюємо за Г2 (2-3 пункти)
+4. Що оцінюємо за Г3 (2-3 пункти)
+5. Еталонне розв'язання</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 07: PROMPT 2 -->
+  <div class="slide" data-label="промпт #2">
+    <div class="slide-inner">
+      <div class="label reveal">інструмент · промпт #2</div>
+      <h2 class="reveal reveal-2">Промпт для генерації <em>рубрики оцінювання</em></h2>
+      <p class="prompt-intro reveal reveal-3">
+        Запускайте в тому ж чаті Gemini — він уже пам'ятає задачу. Готову таблицю потім обов'язково редагуйте під свій клас: ШІ часто дає «середнє по лікарні».
+      </p>
+
+      <div class="prompt-block reveal reveal-4">
+        <div class="prompt-label">Gemini · prompt 02</div>
+        <button class="copy-btn" data-target="p2">копіювати</button>
+<pre id="p2">До задачі вище склади схему оцінювання за 12-бальною шкалою
+НУШ за 3 групами результатів.
+Кожна група — 4 бали максимум (разом 12).
+Опиши 4 рівні для кожної групи:
+- початковий (1 бал)
+- середній (2 бали)
+- достатній (3 бали)
+- високий (4 бали)
+Опис рівня = що саме учень зробив або не зробив.
+Подай у вигляді таблиці.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 08: HOMEWORK -->
+  <div class="slide dark" data-label="домашнє завдання">
+    <div class="slide-inner">
+      <div class="label reveal">після заняття · домашня робота</div>
+      <h2 class="reveal reveal-2" style="color: var(--paper);">Три завдання — <em style="color: var(--accent-soft);">різного калібру</em></h2>
+
+      <div class="homework">
+        <div class="hw-item reveal reveal-3">
+          <div class="hw-num">01</div>
+          <div class="hw-content">
+            <h3>Згенерувати задачу + рубрику</h3>
+            <p>До наступної зустрічі обрати одну тему свого найближчого уроку, згенерувати в Gemini задачу за 3 групами + рубрику. Відредагувати під свій клас. Принести роздруківку.</p>
+          </div>
+          <div class="hw-tag required">обов'язкове</div>
+        </div>
+
+        <div class="hw-item reveal reveal-4">
+          <div class="hw-num">02</div>
+          <div class="hw-content">
+            <h3>Прочитати путівник МОН</h3>
+            <p>«Путівник з оцінювання математичної освітньої галузі» — розділ про галузеві критерії. Виписати 3 фрази, які зачепили.</p>
+          </div>
+          <div class="hw-tag">самоопрацювання</div>
+        </div>
+
+        <div class="hw-item reveal reveal-5">
+          <div class="hw-num">03</div>
+          <div class="hw-content">
+            <h3>Випробувати на уроці</h3>
+            <p>Провести таку задачу на уроці й оцінити одного учня за рубрикою. Поділитися враженням у спільному чаті — що вийшло, що не вийшло.</p>
+          </div>
+          <div class="hw-tag optional">за бажанням</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 09: FAQ -->
+  <div class="slide" data-label="ймовірні запитання">
+    <div class="slide-inner">
+      <div class="label reveal">під рукою · ймовірні запитання</div>
+      <h2 class="reveal reveal-2">Запитання, на які ви <em>точно</em> отримаєте відповідь</h2>
+
+      <div class="faq reveal reveal-3">
+        <div class="faq-item">
+          <div class="faq-q">
+            А якщо задача не охоплює всі 3 групи?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a">Нормально. Не кожне завдання має покривати всі 3 групи. Підсумкова робота — так, поточне — ні. Ціль — щоб за тему/розділ учень мав можливість проявити себе у всіх трьох.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            А ШІ не помиляється?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a">Помиляється. Тому вчитель завжди перевіряє і редагує. Промпт економить 80% часу, але 20% — це ваша експертиза. Без неї ШІ не працює.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            Скільки балів за кожну групу?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a">За Рекомендаціями оцінюється рівнями: початковий, середній, достатній, високий. У рубриці зручно розкласти 12 балів як 4+4+4, але це робоча схема, а не догма.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            А якщо груп насправді 4, як у деяких джерелах?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a">Плутанина між загальними цілями стандарту (їх 4) і групами результатів для оцінювання (їх 3). Оцінюємо за наказом МОН №1093 від 02.08.2024 — там чітко три групи.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: FINAL -->
+  <div class="slide" data-label="дякую" style="background: var(--bg-alt);">
+    <div class="slide-inner">
+      <div class="final-grid">
+        <div>
+          <div class="label reveal">резюме · одним рядком</div>
+          <div class="final-big reveal reveal-2">
+            Зрозумів.<br>
+            <em>Розв'язав.</em><br>
+            Перевірив.
+          </div>
+        </div>
+        <div>
+          <div class="label reveal reveal-3">що забрати з собою</div>
+          <ul class="final-list">
+            <li class="reveal reveal-4">3 групи результатів — це цикл роботи з задачею.</li>
+            <li class="reveal reveal-5">Gemini + 2 промпти = задача й рубрика за 10 хвилин.</li>
+            <li class="reveal reveal-6">Вчитель завжди редагує те, що згенерував ШІ.</li>
+            <li class="reveal reveal-7">Домашка чекає — почати з обов'язкового.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV DOTS -->
+<div class="nav" id="nav"></div>
+
+<!-- ARROWS -->
+<div class="arrows">
+  <button class="arrow-btn" id="prevBtn" aria-label="попередній слайд">↑</button>
+  <button class="arrow-btn" id="nextBtn" aria-label="наступний слайд">↓</button>
+</div>
+
+<!-- COUNTER -->
+<div class="counter">
+  <span class="current" id="counterCurrent">01</span> / <span id="counterTotal">10</span>
+</div>
+
+<!-- HINT -->
+<div class="hint">
+  <span>навігація:</span>
+  <kbd>↑</kbd><kbd>↓</kbd>
+  <span>або</span>
+  <kbd>скрол</kbd>
+  <span>або</span>
+  <kbd>space</kbd>
+</div>
+
+<script>
+(function() {
+  // ================= DECK NAVIGATION =================
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let animating = false;
+
+  const navContainer = document.getElementById('nav');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const counterCurrent = document.getElementById('counterCurrent');
+  const counterTotal = document.getElementById('counterTotal');
+  const progressFill = document.getElementById('progressFill');
+
+  counterTotal.textContent = String(total).padStart(2, '0');
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('data-label', slide.getAttribute('data-label') || `слайд ${i+1}`);
+    dot.setAttribute('aria-label', `перейти на слайд ${i+1}`);
+    dot.addEventListener('click', () => goTo(i));
+    navContainer.appendChild(dot);
+  });
+
+  function update() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === current) s.classList.add('active');
+      else if (i < current) s.classList.add('prev');
+    });
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+    counterCurrent.textContent = String(current + 1).padStart(2, '0');
+    progressFill.style.width = ((current + 1) / total * 100) + '%';
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    slides[current].scrollTop = 0;
+  }
+
+  function goTo(index) {
+    if (animating) return;
+    if (index < 0 || index >= total) return;
+    if (index === current) return;
+    animating = true;
+    current = index;
+    update();
+    setTimeout(() => { animating = false; }, 750);
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  prevBtn.addEventListener('click', next === prev ? prev : next === next ? next : null);
+  // Fix: assign separately
+  prevBtn.onclick = prev;
+  nextBtn.onclick = next;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    // Block deck navigation while start overlay is visible
+    if (!startOverlay.classList.contains('hidden')) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        startSession();
+      }
+      return;
+    }
+    switch(e.key) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+      case 'PageDown':
+      case ' ':
+        e.preventDefault();
+        next();
+        break;
+      case 'ArrowUp':
+      case 'ArrowLeft':
+      case 'PageUp':
+        e.preventDefault();
+        prev();
+        break;
+      case 'Home':
+        e.preventDefault();
+        goTo(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        goTo(total - 1);
+        break;
+    }
+  });
+
+  let wheelTimer = null;
+  let wheelAccum = 0;
+  document.addEventListener('wheel', (e) => {
+    if (!startOverlay.classList.contains('hidden')) return;
+    const active = slides[current];
+    const atTop = active.scrollTop === 0;
+    const atBottom = Math.abs(active.scrollHeight - active.clientHeight - active.scrollTop) < 2;
+    if (e.deltaY > 0 && !atBottom) return;
+    if (e.deltaY < 0 && !atTop) return;
+    e.preventDefault();
+    if (animating) return;
+    wheelAccum += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      if (Math.abs(wheelAccum) > 30) {
+        if (wheelAccum > 0) next();
+        else prev();
+      }
+      wheelAccum = 0;
+    }, 50);
+  }, { passive: false });
+
+  let touchStartY = 0;
+  let touchEndY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (!startOverlay.classList.contains('hidden')) return;
+    touchEndY = e.changedTouches[0].screenY;
+    const diff = touchStartY - touchEndY;
+    const active = slides[current];
+    const atTop = active.scrollTop === 0;
+    const atBottom = Math.abs(active.scrollHeight - active.clientHeight - active.scrollTop) < 2;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && atBottom) next();
+      else if (diff < 0 && atTop) prev();
+    }
+  }, { passive: true });
+
+  // ================= COPY BUTTONS =================
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetId = btn.getAttribute('data-target');
+      const text = document.getElementById(targetId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'скопійовано ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
+
+  // ================= FAQ =================
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      item.classList.toggle('open');
+    });
+  });
+
+  // ================= START OVERLAY + TIMER =================
+  const startOverlay = document.getElementById('startOverlay');
+  const startBtn = document.getElementById('startBtn');
+  const timerFloat = document.getElementById('timerFloat');
+  const timerValue = document.getElementById('timerValue');
+  const timerLabel = document.getElementById('timerLabel');
+
+  const DURATION_MS = 30 * 60 * 1000; // 30 minutes
+  let timerStart = null;
+  let timerInterval = null;
+  let expired = false;
+
+  function formatTime(ms) {
+    if (ms < 0) ms = 0;
+    const total = Math.ceil(ms / 1000);
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+
+  function formatOverTime(ms) {
+    const total = Math.floor(Math.abs(ms) / 1000);
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    return '+' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+
+  function updateTimer() {
+    if (!timerStart) return;
+    const elapsed = Date.now() - timerStart;
+    const remaining = DURATION_MS - elapsed;
+
+    if (remaining > 0) {
+      timerValue.textContent = formatTime(remaining);
+      // Warn when 5 min left
+      if (remaining <= 5 * 60 * 1000 && !timerFloat.classList.contains('warning')) {
+        timerFloat.classList.add('warning');
+        timerLabel.textContent = 'мало';
+      }
+    } else {
+      // Time is up
+      if (!expired) {
+        expired = true;
+        timerFloat.classList.remove('warning');
+        timerFloat.classList.add('expired');
+        timerLabel.textContent = 'час вийшов';
+        document.documentElement.classList.add('bw-mode');
+      }
+      timerValue.textContent = formatOverTime(remaining);
+    }
+  }
+
+  function startSession() {
+    startOverlay.classList.add('hidden');
+    setTimeout(() => {
+      timerFloat.classList.add('visible');
+      timerStart = Date.now();
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    }, 400);
+  }
+
+  startBtn.addEventListener('click', startSession);
+
+  // Initial update
+  update();
+})();
+</script>
+
+</body>
+</html>
